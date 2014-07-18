@@ -6,7 +6,6 @@
 require '../vendor/autoload.php';
 
 use Dyn\TrafficManagement;
-use Dyn\TrafficManagement\Record\A;
 
 $tm = new TrafficManagement('customerName', 'username', 'password');
 
