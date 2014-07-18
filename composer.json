@@ -1,0 +1,16 @@
+{
+    "name": "dyn-php",
+    "description": "Dyn PHP SDK - for interaction with Dyn's product APIs",
+    "keywords": ["dyn","sdk","dns","dynect"],
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "Dyn\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.23",
+        "zendframework/zend-http": "~2.3.0"
+    }
+}

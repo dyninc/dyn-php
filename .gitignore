@@ -1,0 +1,10 @@
+# composer files
+composer.lock
+vendor
+
+# IDE/editor files
+.build
+
+# everything else
+.DS_Store
+.swp
