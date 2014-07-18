@@ -19,30 +19,32 @@ then run `composer install` to install the SDK and its dependencies.
 
 ## Quickstart
 
-    use Dyn\TrafficManagement;
-    use Dyn\TrafficManagement\Record\A;
+```php
+use Dyn\TrafficManagement;
+use Dyn\TrafficManagement\Record\A;
 
-    $tm = new TrafficManagement('customerName', 'username', 'password');
+$tm = new TrafficManagement('customerName', 'username', 'password');
 
-    // login
-    $tm->createSession();
+// login
+$tm->createSession();
 
-    // retrieve zone
-    $zone = $tm->getZone('example.com');
+// retrieve zone
+$zone = $tm->getZone('example.com');
 
-    // configure a new record
-    $record = new A();
-    $record->setFqdn('test.example.com')
-           ->setAddress('127.0.0.1');
+// configure a new record
+$record = new A();
+$record->setFqdn('test.example.com')
+       ->setAddress('127.0.0.1');
 
-    // create the new record
-    $zone->createRecord($record);
+// create the new record
+$zone->createRecord($record);
 
-    // publish zone changes
-    $zone->publish();
+// publish zone changes
+$zone->publish();
 
-    // logout
-    $tm->deleteSession();
+// logout
+$tm->deleteSession();
+```
 
 More detailed examples can be found in the `examples` folder.
 
