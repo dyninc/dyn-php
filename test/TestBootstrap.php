@@ -36,7 +36,7 @@ class TestBootstrap
         $apiClient = new ApiClient($client);
 
         // use a dummy token
-        $apiClient->setToken('xxxxxx');
+        $apiClient->setToken('xxxxxxxx');
 
         return $apiClient;
     }

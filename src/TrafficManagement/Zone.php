@@ -4,6 +4,7 @@ namespace Dyn\TrafficManagement;
 
 use Dyn\TrafficManagement\Record\RecordInterface;
 use Dyn\TrafficManagement\Api\Client as ApiClient;
+use Dyn\TrafficManagement\Service\ServiceInterface;
 
 class Zone
 {
@@ -442,6 +443,99 @@ class Zone
             }
 
             return $records;
+        }
+
+        return false;
+    }
+
+    /**
+     * Creates the supplied service at $fqdn
+     *
+     * @param  ServiceInterface $service
+     * @param  string           $fqdn
+     * @return boolean|Dyn\TrafficManagement\Api\Response
+     */
+    public function createService(ServiceInterface $service, $fqdn = null)
+    {
+        if ($fqdn === null) {
+            $fqdn = $service->getFqdn();
+        }
+
+        $path = '/'.$service->getType().'/'.$this->getName().'/'.$fqdn;
+        $params = $service->getParams();
+
+        $result = $this->apiClient->post($path, $params);
+        if ($result && $result->isOk()) {
+            if ($result->isComplete()) {
+                return true;
+            } else {
+                return $result;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the service of the specified type at $fqdn
+     *
+     * @param  string $type
+     * @param  string $fqdn
+     * @return ServiceInterface|false
+     */
+    public function getService($type, $fqdn)
+    {
+        $result = $this->apiClient->get('/'.$type.'/'.$this->getName().'/'.$fqdn);
+        if ($result && $result->isComplete()) {
+            $className = 'Dyn\TrafficManagement\Service\\'.$type;
+            $service = $className::build($result->data);
+
+            return $service;
+        }
+
+        return false;
+    }
+
+    /**
+     * Updates the supplied service
+     *
+     * @param  ServiceInterface $service
+     * @return boolean|Dyn\TrafficManagement\Api\Response
+     */
+    public function updateService(ServiceInterface $service)
+    {
+        $path = '/'.$service->getType().'/'.$this->getName().'/'.$service->getFqdn();
+        $params = $service->getParams();
+
+        $result = $this->apiClient->put($path, $params);
+        if ($result && $result->isOk()) {
+            if ($result->isComplete()) {
+                return true;
+            } else {
+                return $result;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Deletes the supplied service
+     *
+     * @param  ServiceInterface $service
+     * @return boolean|Dyn\TrafficManagement\Api\Response
+     */
+    public function deleteService(ServiceInterface $service)
+    {
+        $path = '/'.$service->getType().'/'.$this->getName().'/'.$service->getFqdn();
+
+        $result = $this->apiClient->delete($path);
+        if ($result && $result->isOk()) {
+            if ($result->isComplete()) {
+                return true;
+            } else {
+                return $result;
+            }
         }
 
         return false;

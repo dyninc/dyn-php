@@ -1,9 +1,16 @@
 <?php
 
-namespace Dyn\TrafficManagement;
+namespace Dyn\TrafficManagement\Service;
 
-class HttpRedirect
+use Dyn\TrafficManagement\Service\AbstractService;
+
+class HTTPRedirect extends AbstractService
 {
+    /**
+     * @var string
+     */
+    protected $type = 'HTTPRedirect';
+
     /**
      * HTTP response code to return for redirection
      *
@@ -37,7 +44,7 @@ class HttpRedirect
             throw new \InvalidArgumentException('Code must be numeric');
         }
 
-        if ($code != 301 || $code != 302) {
+        if ($code != 301 && $code != 302) {
             throw new \InvalidArgumentException('Invalid code provided');
         }
 
@@ -98,5 +105,19 @@ class HttpRedirect
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Returns an array of service params
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        return array(
+            'code' => $this->getCode(),
+            'keep_uri' => $this->getKeepUri(),
+            'url' => $this->getUrl()
+        );
     }
 }
