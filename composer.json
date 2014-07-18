@@ -1,5 +1,5 @@
 {
-    "name": "dyn-php",
+    "name": "dyninc/dyn-php",
     "description": "Dyn PHP SDK - for interaction with Dyn's product APIs",
     "keywords": ["dyn","sdk","dns","dynect"],
     "type": "library",
