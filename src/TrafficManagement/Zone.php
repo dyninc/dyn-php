@@ -217,16 +217,21 @@ class Zone
      * Create the supplied record
      *
      * @param  RecordInterface $record
+     * @param  string          $fqdn
      * @return boolean|Dyn\TrafficManagement\Api\Response
      */
-    public function createRecord(RecordInterface $record)
+    public function createRecord(RecordInterface $record, $fqdn = null)
     {
+        if ($fqdn === null) {
+            $fqdn = $record->getFqdn();
+        }
+
         $params = array(
             'rdata' => $record->getRData(),
             'ttl' => $record->getTtl()
         );
 
-        return $this->createRecordFromParams($record->getType(), $record->getFqdn(), $params);
+        return $this->createRecordFromParams($record->getType(), $fqdn, $params);
     }
 
     /**

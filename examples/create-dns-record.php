@@ -18,11 +18,10 @@ $zone = $tm->getZone('example.com');
 
 // configure the new record
 $record = new A();
-$record->setFqdn('test.example.com')
-       ->setAddress('127.0.0.1');
+$record->setAddress('127.0.0.1');
 
 // create the new record
-$zone->createRecord($record);
+$zone->createRecord($record, 'test.example.com');
 
 // publish changes to the zone (makes the new record live)
 $zone->publish();

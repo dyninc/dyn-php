@@ -1,11 +1,11 @@
 Dyn PHP SDK
 ===========
 
-NOTE: This is a developer preview - we welcome your feedback! Please reach out via pull request, GitHub issue, or via. our [Community forum](http://www.dyncommunity.com/)
+NOTE: This is a developer preview - we welcome your feedback! Please reach out via pull request, GitHub issue, or via. our [Community forum](http://www.dyncommunity.com/).
 
 ## Requirements
 
-This SDK requires PHP 5.3.23 or above. The cURL extension is recommended (and will be used if present), although not required.
+This SDK requires PHP **5.3.23** or above. The cURL extension is recommended (although not required), and will be used if present.
 
 ## Installation
 
@@ -33,11 +33,10 @@ $zone = $tm->getZone('example.com');
 
 // configure a new record
 $record = new A();
-$record->setFqdn('test.example.com')
-       ->setAddress('127.0.0.1');
+$record->setAddress('127.0.0.1');
 
 // create the new record
-$zone->createRecord($record);
+$zone->createRecord($record, 'test.example.com');
 
 // publish zone changes
 $zone->publish();
@@ -46,7 +45,7 @@ $zone->publish();
 $tm->deleteSession();
 ```
 
-More detailed examples can be found in the `examples` folder.
+More detailed examples can be found in the [examples](/dyninc/dyn-php/tree/master/examples) folder.
 
 # API Endpoints Supported
 
