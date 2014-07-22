@@ -45,7 +45,7 @@ $zone->publish();
 $tm->deleteSession();
 ```
 
-More detailed examples can be found in the [examples](/dyninc/dyn-php/tree/master/examples) folder.
+More detailed examples can be found in the [examples](examples) folder.
 
 # API Endpoints Supported
 
