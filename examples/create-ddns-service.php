@@ -1,6 +1,6 @@
 <?php
 /**
- * This example creates a HTTP Redirect service on a zone
+ * This example creates a Dynamic DNS service on a zone
  */
 
 require '../vendor/autoload.php';
