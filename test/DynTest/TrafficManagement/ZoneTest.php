@@ -5,6 +5,7 @@ namespace DynTest\TrafficManagement;
 use PHPUnit_Framework_TestCase;
 use Dyn\TrafficManagement\Zone;
 use Dyn\TrafficManagement\Service\HTTPRedirect;
+use Dyn\TrafficManagement\Service\DynamicDNS;
 
 class ZoneTest extends PHPUnit_Framework_TestCase
 {
@@ -34,7 +35,10 @@ class ZoneTest extends PHPUnit_Framework_TestCase
 '{"status": "success", "data": {"url": "http://example.com/other", "code": "302", "keep_uri": "False", "fqdn": "test.example.com", "zone": "example.com"}, "job_id": 12345678, "msgs": [{"INFO": "add_node: New node added to zone", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}, {"INFO": "add: Service added", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}]}'
         );
 
-        $this->assertTrue($this->zone->createService($httpRedirect, 'test.example.com'));
+        $this->assertInstanceOf(
+            'Dyn\TrafficManagement\Service\HTTPRedirect',
+            $this->zone->createService($httpRedirect, 'test.example.com')
+        );
     }
 
     public function testHttpRedirectServiceUpdate()
@@ -70,5 +74,44 @@ class ZoneTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertTrue($this->zone->deleteService($httpRedirect, 'test.example.com'));
+    }
+
+    public function testDDNSServiceCreation()
+    {
+        $ddns = new DynamicDNS();
+        $ddns->setAddress('127.0.0.1')
+             ->setRecordType('A');
+
+        // simulate the Dyn API response
+        $this->apiClient->getHttpClient()->getAdapter()->setResponse(
+"HTTP/1.1 200 OK" . "\r\n" .
+"Content-type: application/json" . "\r\n\r\n" .
+'{"status": "success", "data": {"abuse_count": "0", "last_updated": "0", "zone": "example.com", "fqdn": "dyndns.example.com", "record_type": "A", "address": "127.0.0.1", "active": "Y"}, "job_id": 12345678, "msgs": [{"INFO": "add_node: New node added to zone", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}, {"INFO": "add: Service added", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}, {"INFO": "service: You do not have any updater users to dynamically update this host.", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}]}'
+        );
+
+        $this->assertInstanceOf(
+            'Dyn\TrafficManagement\Service\DynamicDNS',
+            $this->zone->createService($ddns, 'dyndns.example.com')
+        );
+    }
+
+    public function testDDNSServiceCreationWithUser()
+    {
+        $ddns = new DynamicDNS();
+        $ddns->setAddress('127.0.0.1')
+             ->setRecordType('A')
+             ->setUsername('dyndnsuser');
+
+        // simulate the Dyn API response
+        $this->apiClient->getHttpClient()->getAdapter()->setResponse(
+"HTTP/1.1 200 OK" . "\r\n" .
+"Content-type: application/json" . "\r\n\r\n" .
+'{"status": "success", "data": {"new_user": {"status": "active", "password": "xyzxyz", "user_name": "868X1o-dyndnsuser", "group_name": ["UPDATE"]}, "ddns": {"abuse_count": "0", "last_updated": "0", "zone": "example.com", "fqdn": "dyndns.example.com", "record_type": "A", "address": "127.0.0.1", "active": "Y"}}, "job_id": 12345678, "msgs": [{"INFO": "add_node: New node added to zone", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}, {"INFO": "add: New updater 868X1o-dyndnsuser created.", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}, {"INFO": "update: User updated", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}, {"INFO": "add: Service added", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}]}'
+        );
+
+        $this->assertInstanceOf(
+            'Dyn\TrafficManagement\Service\DynamicDNS',
+            $this->zone->createService($ddns, 'dyndns.example.com')
+        );
     }
 }

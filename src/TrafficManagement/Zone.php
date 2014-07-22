@@ -4,7 +4,9 @@ namespace Dyn\TrafficManagement;
 
 use Dyn\TrafficManagement\Record\RecordInterface;
 use Dyn\TrafficManagement\Api\Client as ApiClient;
+use Dyn\TrafficManagement\Api\Response as ApiResponse;
 use Dyn\TrafficManagement\Service\ServiceInterface;
+use Dyn\TrafficManagement\Service\DynamicDNS;
 
 class Zone
 {
@@ -218,7 +220,7 @@ class Zone
      *
      * @param  RecordInterface $record
      * @param  string          $fqdn
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function createRecord(RecordInterface $record, $fqdn = null)
     {
@@ -240,7 +242,7 @@ class Zone
      * @param  string $type   Record type to create, A, CNAME etc.
      * @param  string $fqdn   FQDN of the record to create
      * @param  array  $params Array of record parameters
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function createRecordFromParams($type, $fqdn, array $params)
     {
@@ -311,7 +313,7 @@ class Zone
      * Updates the specified record
      *
      * @param  RecordInterface $record
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function updateRecord(RecordInterface $record)
     {
@@ -334,7 +336,7 @@ class Zone
      * @param  string  $fqdn
      * @param  integer $id
      * @param  array   $params
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function updateRecordFromParams($type, $fqdn, $id, array $params)
     {
@@ -356,7 +358,7 @@ class Zone
      * Delete the specified record
      *
      * @param  RecordInterface        $record
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function deleteRecord(RecordInterface $record)
     {
@@ -373,7 +375,7 @@ class Zone
      * @param  string   $type
      * @param  string   $fqdn
      * @param  integer  $id
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function deleteRecordFromParams($type, $fqdn, $id)
     {
@@ -396,7 +398,7 @@ class Zone
      *
      * @param  string $type
      * @param  string $fqdn
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function deleteRecords($type, $fqdn)
     {
@@ -454,11 +456,30 @@ class Zone
     }
 
     /**
+     * Returns the API resource path for the supplied service.
+     *
+     * @param  ServiceInterface $service
+     * @param  string           $fqdn
+     * @return string
+     */
+    protected function buildServicePath(ServiceInterface $service, $fqdn)
+    {
+        $path = '/'.$service->getType().'/'.$this->getName().'/'.$fqdn;
+        if ($service instanceof DynamicDNS) {
+            // DDNS uses a slightly different path
+            $path .= '/'.$service->getRecordType();
+        }
+        $path .= '/';
+
+        return $path;
+    }
+
+    /**
      * Creates the supplied service at $fqdn
      *
      * @param  ServiceInterface $service
      * @param  string           $fqdn
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return ServiceInterface|ApiResponse
      */
     public function createService(ServiceInterface $service, $fqdn = null)
     {
@@ -466,13 +487,13 @@ class Zone
             $fqdn = $service->getFqdn();
         }
 
-        $path = '/'.$service->getType().'/'.$this->getName().'/'.$fqdn;
+        $path = $this->buildServicePath($service, $fqdn);
         $params = $service->getParams();
 
         $result = $this->apiClient->post($path, $params);
         if ($result && $result->isOk()) {
             if ($result->isComplete()) {
-                return true;
+                return $service;
             } else {
                 return $result;
             }
@@ -486,13 +507,37 @@ class Zone
      *
      * @param  string $type
      * @param  string $fqdn
+     * @param  string $ddnsRecordType DDNS record type (required if $type is DDNS)
      * @return ServiceInterface|false
      */
-    public function getService($type, $fqdn)
+    public function getService($type, $fqdn, $ddnsRecordType = null)
     {
-        $result = $this->apiClient->get('/'.$type.'/'.$this->getName().'/'.$fqdn);
+        $path = '/'.$type.'/'.$this->getName().'/'.$fqdn.'/';
+        if ($type == 'DDNS') {
+            if ($ddnsRecordType) {
+                if ($ddnsRecordType == 'A' || $ddnsRecordType == 'AAAA') {
+                    $path .= $ddnsRecordType.'/';
+                } else {
+                    throw new \InvalidArgumentException(
+                        "DDNS record type must be either 'A' or 'AAAA'"
+                    );
+                }
+
+            } else {
+                throw new \InvalidArgumentException(
+                    "DDNS record type ('A' or 'AAAA') must be specified " .
+                    "when loading a DDNS service"
+                );
+            }
+        }
+
+        $result = $this->apiClient->get($path);
         if ($result && $result->isComplete()) {
-            $className = 'Dyn\TrafficManagement\Service\\'.$type;
+            if ($type == 'DDNS') {
+                $className = 'Dyn\TrafficManagement\Service\DynamicDNS';
+            } else {
+                $className = 'Dyn\TrafficManagement\Service\\'.$type;
+            }
             $service = $className::build($result->data);
 
             return $service;
@@ -505,11 +550,11 @@ class Zone
      * Updates the supplied service
      *
      * @param  ServiceInterface $service
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function updateService(ServiceInterface $service)
     {
-        $path = '/'.$service->getType().'/'.$this->getName().'/'.$service->getFqdn();
+        $path = $this->buildServicePath($service, $service->getFqdn());
         $params = $service->getParams();
 
         $result = $this->apiClient->put($path, $params);
@@ -528,11 +573,11 @@ class Zone
      * Deletes the supplied service
      *
      * @param  ServiceInterface $service
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function deleteService(ServiceInterface $service)
     {
-        $path = '/'.$service->getType().'/'.$this->getName().'/'.$service->getFqdn();
+        $path = $this->buildServicePath($service, $service->getFqdn());
 
         $result = $this->apiClient->delete($path);
         if ($result && $result->isOk()) {
@@ -549,7 +594,7 @@ class Zone
     /**
      * Publish changes made to the zone
      *
-     * @return Dyn\TrafficManagement\Api\Response
+     * @return ApiResponse
      */
     public function publish()
     {
@@ -564,7 +609,7 @@ class Zone
     /**
      * Freeze the zone, preventing changes to it until it is thawed.
      *
-     * @return Dyn\TrafficManagement\Api\Response
+     * @return ApiResponse
      */
     public function freeze()
     {
@@ -579,7 +624,7 @@ class Zone
     /**
      * Thaw a frozen zone, allowing changes to be made again
      *
-     * @return Dyn\TrafficManagement\Api\Response
+     * @return ApiResponse
      */
     public function thaw()
     {
@@ -594,7 +639,7 @@ class Zone
     /**
      * Returns any unpublished changes made within the current session
      *
-     * @return array|false|Dyn\TrafficManagement\Api\Response
+     * @return array|false|ApiResponse
      */
     public function getChanges()
     {
@@ -613,7 +658,7 @@ class Zone
     /**
      * Discards any unpublished changes made within the current session
      *
-     * @return boolean|Dyn\TrafficManagement\Api\Response
+     * @return boolean|ApiResponse
      */
     public function discardChanges()
     {

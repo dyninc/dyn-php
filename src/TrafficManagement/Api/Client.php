@@ -55,7 +55,7 @@ class Client
     {
         if (!$this->httpClient) {
             $config = array(
-                'useragent' => 'Dyn PHP SDK v0.1',
+                'useragent' => 'Dyn PHP SDK v0.2.0',
                 'maxredirects' => 5
             );
 

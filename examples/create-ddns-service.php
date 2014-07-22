@@ -6,7 +6,7 @@
 require '../vendor/autoload.php';
 
 use Dyn\TrafficManagement;
-use Dyn\TrafficManagement\Service\HTTPRedirect;
+use Dyn\TrafficManagement\Service\DynamicDNS;
 
 $tm = new TrafficManagement('customerName', 'username', 'password');
 
@@ -17,14 +17,16 @@ $tm->createSession();
 $zone = $tm->getZone('example.com');
 
 // configure the new service
-$service = new HTTPRedirect();
-$service->setUri('http://example.com/someotherurl')
-       ->setCode(301)
-       ->setKeepUri(false);
+$service = new DynamicDNS();
+$service->setAddress('127.0.0.1'); // initial IP address
+        ->setRecordType('A'); // 'A' or 'AAAA'
+        ->setUsername('dyndns'); // update client user (will be created)
 
 // create the new service on test.example.com
-$zone->createService($service, 'test.example.com');
+$zone->createService($service, 'dyndns.example.com');
 
+// publish changes
+$zone->publish();
 
 // logout
 $tm->deleteSession();

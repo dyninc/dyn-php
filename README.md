@@ -12,7 +12,7 @@ This SDK requires PHP **5.3.23** or above. The cURL extension is recommended (al
 The best way to install the module is with Composer (http://getcomposer.org). Add this to your `composer.json`:
 
     "require": {
-        "dyninc/dyn-php": "0.1.0"
+        "dyninc/dyn-php": "0.2.0"
     }
 
 then run `composer install` to install the SDK and its dependencies.
@@ -52,3 +52,5 @@ More detailed examples can be found in the [examples](/dyninc/dyn-php/tree/maste
 * Traffic Management - Session API: create/destroy/refresh
 * Traffic Management - Record API: AAAA A CERT CNAME DHCID DNSKEY DS IPSECKEY KEY LOC MX NAPTR NS NSAP PTR PX RP SOA SPF SRV SSHFP TXT
 * Traffic Management - Zone API: list/get/publish/freeze/thaw/getChanges/discardChanges
+* Traffic Management - HTTP Redirect service: create/update/list/destroy
+* Traffic Management - Dynamic DNS service: create/update/list/destroy
