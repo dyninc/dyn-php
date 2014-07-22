@@ -1,10 +1,11 @@
 CHANGELOG
 =========
 
-0.2.0 (2014-07-??)
+0.2.0 (2014-07-22)
 ------------------
 
-* Added HTTPRedirect support
+* Added HTTP Redirect support
+* Added Dynamic DNS support
 
 0.1.0 (2014-07-18)
 ------------------
