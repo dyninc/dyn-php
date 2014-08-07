@@ -13,7 +13,10 @@ class AccountsTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->accounts = new Accounts(TestBootstrap::getTestMMApiClient());
+        $apiClient = TestBootstrap::getTestMMApiClient();
+        $apiClient->setApiKey('xxxxxxxxxxxx');
+
+        $this->accounts = new Accounts($apiClient);
     }
 
     public function testGetAllResultParsing()

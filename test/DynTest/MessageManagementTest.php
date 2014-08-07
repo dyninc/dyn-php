@@ -12,8 +12,11 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $apiClient = TestBootstrap::getTestMMApiClient();
+        $apiClient->setApiKey('xxxxxxxxxxxx');
+
         $this->mm = new MessageManagement('xxxxxxxxxxxx');
-        $this->mm->setApiClient(TestBootstrap::getTestMMApiClient());
+        $this->mm->setApiClient($apiClient);
     }
 
     public function testSend()

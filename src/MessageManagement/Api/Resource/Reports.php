@@ -217,8 +217,16 @@ class Reports extends AbstractResource
      * @param  null|array           $xHeaders
      * @return stdClass
      */
-    public function getBounces($startIndex = 0, $startDate = null, $endDate = null, $sender = null, $emailAddress = null, $bounceType = null, $noHeaders = null, $xHeaders = null)
-    {
+    public function getBounces(
+        $startIndex = 0,
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $emailAddress = null,
+        $bounceType = null,
+        $noHeaders = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate, $sender, $xHeaders);
         if ($startIndex) {
             $params['startindex'] = $startIndex;
@@ -272,8 +280,12 @@ class Reports extends AbstractResource
      * @param  null|array           $xHeaders  Optional array of X-Header values
      * @return stdClass
      */
-    public function getComplaintsCount($startDate = null, $endDate = null, $sender = null, $xHeaders = null)
-    {
+    public function getComplaintsCount(
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate, $sender, $xHeaders);
 
         $result = $this->getApiClient()->get('/reports/complaints/count', $params);
@@ -299,8 +311,13 @@ class Reports extends AbstractResource
      * @param  null|array           $xHeaders   Optional array of X-Header values
      * @return array|false
      */
-    public function getComplaints($startIndex = 0, $startDate = null, $endDate = null, $sender = null, $xHeaders = null)
-    {
+    public function getComplaints(
+        $startIndex = 0,
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate, $sender, $xHeaders);
         if ($startIndex) {
             $params['startindex'] = $startIndex;
@@ -373,8 +390,14 @@ class Reports extends AbstractResource
      * @param  null|DateTime|string $endDate   Optional end date
      * @return stdClass
      */
-    public function getOpensCount($startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getOpensCount(
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate, $sender, $xHeaders);
 
         if ($domain) {
@@ -410,8 +433,15 @@ class Reports extends AbstractResource
      * @param  null|array           $xHeaders   Optional array of X-Header values
      * @return array|false
      */
-    public function getOpens($startIndex = 0, $startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getOpens(
+        $startIndex = 0,
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate);
         if ($startIndex) {
             $params['startindex'] = $startIndex;
@@ -442,8 +472,14 @@ class Reports extends AbstractResource
      * @param  null|DateTime|string $endDate   Optional end date
      * @return stdClass
      */
-    public function getUniqueOpensCount($startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getUniqueOpensCount(
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate, $sender, $xHeaders);
 
         if ($domain) {
@@ -479,8 +515,15 @@ class Reports extends AbstractResource
      * @param  null|array           $xHeaders   Optional array of X-Header values
      * @return array|false
      */
-    public function getUniqueOpens($startIndex = 0, $startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getUniqueOpens(
+        $startIndex = 0,
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate);
         if ($startIndex) {
             $params['startindex'] = $startIndex;
@@ -511,8 +554,14 @@ class Reports extends AbstractResource
      * @param  null|DateTime|string $endDate   Optional end date
      * @return stdClass
      */
-    public function getClicksCount($startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getClicksCount(
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate, $sender, $xHeaders);
 
         if ($domain) {
@@ -548,8 +597,15 @@ class Reports extends AbstractResource
      * @param  null|array           $xHeaders   Optional array of X-Header values
      * @return array|false
      */
-    public function getClicks($startIndex = 0, $startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getClicks(
+        $startIndex = 0,
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate);
         if ($startIndex) {
             $params['startindex'] = $startIndex;
@@ -580,8 +636,14 @@ class Reports extends AbstractResource
      * @param  null|DateTime|string $endDate   Optional end date
      * @return stdClass
      */
-    public function getUniqueClicksCount($startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getUniqueClicksCount(
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate, $sender, $xHeaders);
 
         if ($domain) {
@@ -617,8 +679,15 @@ class Reports extends AbstractResource
      * @param  null|array           $xHeaders   Optional array of X-Header values
      * @return array|false
      */
-    public function getUniqueClicks($startIndex = 0, $startDate = null, $endDate = null, $sender = null, $domain = null, $recipient = null, $xHeaders = null)
-    {
+    public function getUniqueClicks(
+        $startIndex = 0,
+        $startDate = null,
+        $endDate = null,
+        $sender = null,
+        $domain = null,
+        $recipient = null,
+        $xHeaders = null
+    ) {
         $params = $this->buildBasicParams($startDate, $endDate);
         if ($startIndex) {
             $params['startindex'] = $startIndex;

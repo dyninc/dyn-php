@@ -6,6 +6,7 @@ use Zend\Http\Client as HttpClient;
 use Zend\Http\Request;
 use Dyn\MessageManagement\Api\Response;
 use Dyn\MessageManagement\Api\Http\Response as HttpResponse;
+use Dyn\MessageManagement\Api\Exception;
 
 class Client
 {
@@ -129,6 +130,11 @@ class Client
     {
         $httpClient = $this->getHttpClient();
 
+        // a quick sanity check
+        if ($this->getApiKey() === null) {
+            throw new Exception\MissingOrInvalidApiKeyException();
+        }
+
         // ensure our custom HTTP response class is used instead of the
         // normal HTTP response class
         $httpResponse = new HttpResponse();
@@ -145,6 +151,35 @@ class Client
             $this->lastResponse = Response::fromJson($json);
 
             return $this->lastResponse;
+
+        } else {
+            // throw exceptions for certain API-specific status codes
+            $statusCode = $this->lastHttpResponse->getStatusCode();
+
+            $error = null;
+            $contentType = $this->lastHttpResponse->getHeaders()->get('Content-Type');
+            if ($contentType && $contentType->match('application/json')) {
+                // attempt to parse the response and extract the error
+                $json = json_decode($this->lastHttpResponse->getBody());
+                if ($json && !empty($json->response->message)) {
+                    $error = $json->response->message;
+                }
+            }
+            if (!$error) {
+                $error = "'API request failed with status code '$statusCode'";
+            }
+
+            if ($statusCode == 451) {
+                throw new Exception\MissingOrInvalidApiKeyException($error);
+            } elseif ($statusCode == 452) {
+                throw new Exception\MissingOrInvalidRequiredFieldsException($error);
+            } elseif ($statusCode == 453) {
+                throw new Exception\ObjectAlreadyExistsException($error);
+            } elseif ($statusCode == 454) {
+                throw new Exception\FeatureNotEnabledException($error);
+            } else {
+                throw new Exception\MessageManagementException($error);
+            }
         }
 
         return false;
