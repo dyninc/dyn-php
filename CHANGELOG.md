@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.3.0 (2014-08-07)
+------------------
+
+* Added support for all Message Management endpoints
+
 0.2.0 (2014-07-22)
 ------------------
 
