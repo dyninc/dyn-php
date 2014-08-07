@@ -153,22 +153,24 @@ class Client
             return $this->lastResponse;
 
         } else {
-            // throw exceptions for certain API-specific status codes
             $statusCode = $this->lastHttpResponse->getStatusCode();
 
+            // extract the error message from the response if there is one
             $error = null;
             $contentType = $this->lastHttpResponse->getHeaders()->get('Content-Type');
             if ($contentType && $contentType->match('application/json')) {
-                // attempt to parse the response and extract the error
                 $json = json_decode($this->lastHttpResponse->getBody());
                 if ($json && !empty($json->response->message)) {
                     $error = $json->response->message;
                 }
             }
+
+            // otherwise fallback on something generic
             if (!$error) {
                 $error = "'API request failed with status code '$statusCode'";
             }
 
+            // throw an appropriate exception for the API's custom status codes
             if ($statusCode == 451) {
                 throw new Exception\MissingOrInvalidApiKeyException($error);
             } elseif ($statusCode == 452) {
