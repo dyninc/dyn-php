@@ -1,6 +1,6 @@
 <?php
 
-namespace DynTest\Api;
+namespace DynTest\TrafficManagement\Api;
 
 use PHPUnit_Framework_TestCase;
 use Dyn\TrafficManagement\Api\Client;

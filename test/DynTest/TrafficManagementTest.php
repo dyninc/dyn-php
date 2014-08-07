@@ -12,7 +12,7 @@ class TrafficManagementTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->tm = new TrafficManagement('testcustomer', 'testusername', 'testpassword');
-        $this->tm->setApiClient(TestBootstrap::getTestApiClient());
+        $this->tm->setApiClient(TestBootstrap::getTestTMApiClient());
     }
 
     public function testSessionCreationPopulatesToken()

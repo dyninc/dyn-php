@@ -3,7 +3,7 @@
  * This example creates a new zone, adds some records to it, and then publishes.
  */
 
-require '../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 use Dyn\TrafficManagement;
 use Dyn\TrafficManagement\Record\A;

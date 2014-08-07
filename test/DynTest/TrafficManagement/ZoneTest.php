@@ -15,7 +15,7 @@ class ZoneTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->apiClient = \DynTest\TestBootstrap::getTestApiClient();
+        $this->apiClient = \DynTest\TestBootstrap::getTestTMApiClient();
 
         $this->zone = new Zone($this->apiClient);
         $this->zone->setName('example.com');

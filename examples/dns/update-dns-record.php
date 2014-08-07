@@ -3,7 +3,7 @@
  * This example retrieves an existing CNAME record and modifies it
  */
 
-require '../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 use Dyn\TrafficManagement;
 

@@ -3,7 +3,7 @@
  * This example creates a single 'A' record and then publishes the changes
  */
 
-require '../vendor/autoload.php';
+require '../../vendor/autoload.php';
 
 use Dyn\TrafficManagement;
 use Dyn\TrafficManagement\Record\A;

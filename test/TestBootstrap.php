@@ -5,7 +5,8 @@ namespace DynTest;
 error_reporting(E_ALL | E_STRICT);
 chdir('../');
 
-use Dyn\TrafficManagement\Api\Client as ApiClient;
+use Dyn\TrafficManagement\Api\Client as DnsApiClient;
+use Dyn\MessageManagement\Api\Client as EmailApiClient;
 use Zend\Http\Client\Adapter\Test as TestAdapter;
 use Zend\Http\Client as HttpClient;
 
@@ -18,12 +19,15 @@ class TestBootstrap
     }
 
     /**
-     * Returns an instance of the ApiClient with the test adapter already
-     * setup.
+     * Returns an instance of the ApiClient for use in the Traffic Management
+     * tests.
      *
-     * @return ApiClient
+     * The test API client has the test adapter already setup, to ease testing
+     * and prevent calls to the live API servers.
+     *
+     * @return DnsApiClient
      */
-    public static function getTestApiClient()
+    public static function getTestTMApiClient()
     {
         $adapter = new TestAdapter();
         $client = new HttpClient(
@@ -33,12 +37,34 @@ class TestBootstrap
             )
         );
 
-        $apiClient = new ApiClient($client);
+        $apiClient = new DnsApiClient($client);
 
         // use a dummy token
         $apiClient->setToken('xxxxxxxx');
 
         return $apiClient;
+    }
+
+    /**
+     * Returns an instance of the ApiClient for use in the Message
+     * Management tests.
+     *
+     * The test API client has the test adapter already setup, to ease testing
+     * and prevent calls to the live API servers.
+     *
+     * @return EmailApiClient
+     */
+    public static function getTestMMApiClient()
+    {
+        $adapter = new TestAdapter();
+        $client = new HttpClient(
+            'http://www.example.com',
+            array(
+                'adapter' => $adapter
+            )
+        );
+
+        return new EmailApiClient($client);
     }
 }
 
