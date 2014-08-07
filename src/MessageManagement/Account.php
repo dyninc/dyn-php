@@ -42,6 +42,9 @@ class Account
      */
     protected $state;
 
+    /**
+     * @var string
+     */
     protected $country;
 
     /**
@@ -73,6 +76,27 @@ class Account
      * @var string
      */
     protected $timeZone;
+
+    /**
+     * Boucne callback URL
+     *
+     * @var string
+     */
+    protected $bounceUrl;
+
+    /**
+     * Spam complaint callback URL
+     *
+     * @var string
+     */
+    protected $spamUrl;
+
+    /**
+     * Unsubscribe callback URL
+     *
+     * @var string
+     */
+    protected $unsubscribeUrl;
 
     /**
      * @var boolean
@@ -138,6 +162,18 @@ class Account
                 ->setContactName($json->contactname)
                 ->setEmailsSent($json->emailssent);
 
+        if (isset($json->bounceurl)) {
+            $account->setBounceUrl($json->bounceurl);
+        }
+
+        if (isset($json->spamurl)) {
+            $account->setSpamUrl($json->spamurl);
+        }
+
+        if (isset($json->unsuburl)) {
+            $account->setUnsubscribeUrl($json->unsuburl);
+        }
+
         if (isset($json->accountname)) {
             $account->setAccountName($json->accountname);
         }
@@ -168,13 +204,13 @@ class Account
             'zipcode' => $this->getZipCode(),
             'country' => $this->getCountry(),
             'timezone' => $this->getTimeZone(),
-            'bounceurl' => '', // TODO
-            'spamurl' => '', // TODO
-            'unsubscribeurl' => '', // TODO
+            'bounceurl' => $this->getBounceUrl(),
+            'spamurl' => $this->getSpamUrl(),
+            'unsubscribeurl' => $this->getUnsubscribeUrl(),
             'trackopens' => $this->getTrackOpens() ? '1' : '0',
             'tracklinks' => $this->getTrackLinks() ? '1' : '0',
             'trackunsubscribes' => $this->getTrackUnsubscribes() ? '1' : '0',
-            'generatenewapikey' => '', // TODO
+            'generatenewapikey' => '0', // TODO
         );
     }
 
@@ -494,6 +530,72 @@ class Account
     public function getTimeZone()
     {
         return $this->timeZone;
+    }
+
+    /**
+     * Setter for bounce URL
+     *
+     * @param string $bounceUrl
+     */
+    public function setBounceUrl($bounceUrl)
+    {
+        $this->bounceUrl = $bounceUrl;
+
+        return $this;
+    }
+
+    /**
+     * Getter for bounce URL
+     *
+     * @return string
+     */
+    public function getBounceUrl()
+    {
+        return $this->bounceUrl;
+    }
+
+    /**
+     * Setter for spam URL
+     *
+     * @param string $spamUrl
+     */
+    public function setSpamUrl($spamUrl)
+    {
+        $this->spamUrl = $spamUrl;
+
+        return $this;
+    }
+
+    /**
+     * Getter for spam URL
+     *
+     * @return string
+     */
+    public function getSpamUrl()
+    {
+        return $this->spamUrl;
+    }
+
+    /**
+     * Setter for unsubscribe URL
+     *
+     * @param string $unsubscribeUrl
+     */
+    public function setUnsubscribeUrl($unsubscribeUrl)
+    {
+        $this->unsubscribeUrl = $unsubscribeUrl;
+
+        return $this;
+    }
+
+    /**
+     * Getter for unsubscribe URL
+     *
+     * @return string
+     */
+    public function getUnsubscribeUrl()
+    {
+        return $this->unsubscribeUrl;
     }
 
     /**
