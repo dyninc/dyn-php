@@ -84,6 +84,9 @@ class Account
      */
     protected $trackOpens;
 
+    /**
+     * @var string
+     */
     protected $testMode;
 
     /**
@@ -91,6 +94,9 @@ class Account
      */
     protected $trackUnsubscribes;
 
+    /**
+     * @var integer
+     */
     protected $maxSampleCount;
 
     /**
@@ -198,6 +204,11 @@ class Account
         return $this->username;
     }
 
+    /**
+     * Setter for password
+     *
+     * @param string $password
+     */
     public function setPassword($password)
     {
         $this->password = $password;
@@ -205,12 +216,21 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for password
+     *
+     * @return string
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
-
+    /**
+     * Setter for account name
+     *
+     * @param string $accountName
+     */
     public function setAccountName($accountName)
     {
         $this->accountName = $accountName;
@@ -218,11 +238,21 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for account name
+     *
+     * @return string
+     */
     public function getAccountName()
     {
         return $this->accountName;
     }
 
+    /**
+     * Setter for company name
+     *
+     * @param string $companyName
+     */
     public function setCompanyName($companyName)
     {
         $this->companyName = $companyName;
@@ -230,11 +260,21 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for company name
+     *
+     * @return string
+     */
     public function getCompanyName()
     {
         return $this->companyName;
     }
 
+    /**
+     * Setter for address
+     *
+     * @param string $address
+     */
     public function setAddress($address)
     {
         $this->address = $address;
@@ -242,12 +282,21 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for address
+     *
+     * @return string
+     */
     public function getAddress()
     {
         return $this->address;
     }
 
-
+    /**
+     * Setter for city
+     *
+     * @param string $city
+     */
     public function setCity($city)
     {
         $this->city = $city;
@@ -255,6 +304,11 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for city
+     *
+     * @return string
+     */
     public function getCity()
     {
         return $this->city;
@@ -348,7 +402,11 @@ class Account
         return $this->phone;
     }
 
-
+    /**
+     * Setter for user type
+     *
+     * @param string $userType
+     */
     public function setUserType($userType)
     {
         $this->userType = $userType;
@@ -356,6 +414,11 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for user type
+     *
+     * @return string
+     */
     public function getUserType()
     {
         return $this->userType;
@@ -411,6 +474,11 @@ class Account
         return $this->apiKey;
     }
 
+    /**
+     * Setter for time zone
+     *
+     * @param string $timeZone
+     */
     public function setTimeZone($timeZone)
     {
         $this->timeZone = $timeZone;
@@ -418,6 +486,11 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for time zone
+     *
+     * @return string
+     */
     public function getTimeZone()
     {
         return $this->timeZone;
@@ -495,7 +568,11 @@ class Account
         return $this->trackOpens;
     }
 
-
+    /**
+     * Setter for test mode
+     *
+     * @param string $testMode
+     */
     public function setTestMode($testMode)
     {
         $this->testMode = $testMode;
@@ -503,6 +580,11 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for test mode
+     *
+     * @return string
+     */
     public function getTestMode()
     {
         return $this->testMode;
@@ -544,6 +626,11 @@ class Account
         return $this->trackUnsubscribes;
     }
 
+    /**
+     * Setter for max sample count
+     *
+     * @param integer $maxSampleCount
+     */
     public function setMaxSampleCount($maxSampleCount)
     {
         $this->maxSampleCount = $maxSampleCount;
@@ -551,11 +638,21 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for max sample count
+     *
+     * @return integer
+     */
     public function getMaxSampleCount()
     {
         return $this->maxSampleCount;
     }
 
+    /**
+     * Setter for contact name
+     *
+     * @param string $contactName
+     */
     public function setContactName($contactName)
     {
         $this->contactName = $contactName;
@@ -563,11 +660,21 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for contact name
+     *
+     * @return string
+     */
     public function getContactName()
     {
         return $this->contactName;
     }
 
+    /**
+     * Setter for emails sent
+     *
+     * @param integer $emailsSent
+     */
     public function setEmailsSent($emailsSent)
     {
         $this->emailsSent = $emailsSent;
@@ -575,6 +682,11 @@ class Account
         return $this;
     }
 
+    /**
+     * Getter for emails sent
+     *
+     * @return integer
+     */
     public function getEmailsSent()
     {
         return $this->emailsSent;
