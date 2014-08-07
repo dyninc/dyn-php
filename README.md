@@ -1,23 +1,23 @@
 Dyn PHP SDK
 ===========
 
-NOTE: This is a developer preview - we welcome your feedback! Please reach out via pull request, GitHub issue, or via. our [Community forum](http://www.dyncommunity.com/).
+This SDK allows PHP developers to interact with Dyn's product APIs from within their PHP applications. Feedback is welcome - please reach out via pull request, GitHub issue, or via. our [Community forum](http://www.dyncommunity.com/).
 
 ## Requirements
 
-This SDK requires PHP **5.3.23** or above. The cURL extension is recommended (although not required), and will be used if present.
+Requires PHP **5.3.23** or above. The cURL extension is recommended (although not required), and will be used if present.
 
 ## Installation
 
-The best way to install the module is with Composer (http://getcomposer.org). Add this to your `composer.json`:
+The best way to install this SDK is with [Composer](http://getcomposer.org). Add the package [`dyninc/dyn-php`](https://packagist.org/packages/dyninc/dyn-php) to the `require` section of your `composer.json`:
 
     "require": {
         "dyninc/dyn-php": "0.2.0"
     }
 
-then run `composer install` to install the SDK and its dependencies.
+then run `composer install` to install the SDK along with its dependencies.
 
-## Quickstart
+## Quickstart - DNS
 
 ```php
 use Dyn\TrafficManagement;
@@ -45,6 +45,25 @@ $zone->publish();
 $tm->deleteSession();
 ```
 
+## Quickstart - Email
+
+```php
+use Dyn\MessageManagement;
+use Dyn\MessageManagement\Mail;
+
+$mm = new MessageManagement('YOUR API KEY');
+
+// setup the message
+$mail = new Mail();
+$mail->setFrom('user@example.com', 'Joe Bloggs')
+     ->setTo('janedoe@example.com')
+     ->setSubject('Email sent via. Dyn SDK')
+     ->setBody('The text of the email');
+
+// send it
+$mm->send($mail);
+```
+
 More detailed examples can be found in the [examples](examples) folder.
 
 # API Endpoints Supported
@@ -54,3 +73,4 @@ More detailed examples can be found in the [examples](examples) folder.
 * Traffic Management - Zone API: list/get/publish/freeze/thaw/getChanges/discardChanges
 * Traffic Management - HTTP Redirect service: create/update/list/destroy
 * Traffic Management - Dynamic DNS service: create/update/list/destroy
+* Message Management - All endpoints supported
