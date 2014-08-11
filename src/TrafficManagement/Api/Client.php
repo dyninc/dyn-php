@@ -83,6 +83,7 @@ class Client
 
         $headers = $request->getHeaders();
         $headers->addHeaderLine('Content-Type', 'application/json');
+        $headers->addHeaderLine('API-Version', '3.5.8');
 
         if ($this->token) {
             $headers->addHeaderLine('Auth-Token', $this->token);
