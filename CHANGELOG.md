@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.4.0 (2014-08-15)
+------------------
+
+* Added support for new Message Management send parameters
+
 0.3.0 (2014-08-07)
 ------------------
 

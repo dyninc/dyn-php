@@ -32,34 +32,65 @@ class Mail extends Message implements MailInterface
             $params['from'] = $fromAddress->current()->toString();
         }
 
-        // To address (required)
-        $toAddresses = $this->getTo();
-        if (count($toAddresses) > 0) {
-            if (count($toAddresses) == 1) {
-                $params['to'] = $toAddresses->current()->toString();
-            } else {
-                $params['to'] = array();
-                foreach ($toAddresses as $toAddress) {
-                    $params['to'][] = $toAddress->toString();
-                }
-            }
-        }
 
-        // 'CC' addresses (optional)
-        $ccAddresses = $this->getCc();
-        if (count($ccAddresses) > 0) {
-            if (count($ccAddresses) == 1) {
-                $params['cc'] = $ccAddresses->current()->toString();
-            } else {
-                $params['cc'] = array();
-                foreach ($ccAddresses as $ccAddress) {
-                    $params['cc'][] = $ccAddress->toString();
+        $addressHeaders = array(
+            'to' => 'To',
+            'cc' => 'Cc',
+            'bcc' => 'Bcc',
+            'replyto' => 'ReplyTo'
+        );
+
+        foreach ($addressHeaders as $shortname => $name) {
+            $addresses = $this->{'get'.$name}();
+            if (count($addresses) > 0) {
+                if (count($addresses) == 1) {
+                    $params[$shortname] = $addresses->current()->toString();
+                } else {
+                    $params[$shortname] = array();
+                    foreach ($addresses as $address) {
+                        $params[$shortname][] = $address->toString();
+                    }
                 }
             }
         }
 
         // Subject (required)
         $params['subject'] = $this->getSubject();
+
+        // Sender (optional)
+        $sender = $this->getSender();
+        if ($sender) {
+            $params['sender'] = $sender->toString();
+        }
+
+        // Handle extra optional headers
+        $extraHeaders = array(
+            'messageid' => 'Message-ID',
+            'comments' => 'Comments',
+            'keywords' => 'Keywords',
+            'replyby' => 'Reply-By',
+            'importance' => 'Importance',
+            'priority' => 'Priority',
+            'sensitivity' => 'Sensitivity',
+            'inreplyto' => 'In-Reply-To',
+            'references' => 'References',
+            'resent-date' => 'Resent-Date',
+            'resent-from' => 'Resent-From',
+            'resent-sender' => 'Resent-Sender',
+            'resent-replyto' => 'Resent-Reply-To',
+            'resent-messageid' => 'Resent-Message-ID'
+        );
+
+        $headers = $this->getHeaders();
+        foreach ($extraHeaders as $shortname => $name) {
+            $header = $headers->get($name);
+            if ($header) {
+                $value = $header->getFieldValue();
+                if (!empty($value)) {
+                    $params[$shortname] = $value;
+                }
+            }
+        }
 
         // Mail body
         $body = $this->getBody();
