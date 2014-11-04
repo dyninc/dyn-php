@@ -193,10 +193,6 @@ class Client
         $request = $this->buildRequest($path);
 
         $request->setMethod(Request::METHOD_GET);
-        // if ($data) {
-        //     var_dump($data);
-        //     $request->setContent(json_encode($data));
-        // }
         if ($data) {
             $request->getQuery()->fromArray($data);
         }
