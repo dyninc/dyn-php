@@ -227,7 +227,8 @@ class TrafficManagement
 
         $params = array(
             'rname' => $rname,
-            'ttl' => $defaultTtl
+            'ttl' => $defaultTtl,
+            'serial_style' => $serialStyle
         );
 
         $result = $this->apiClient->post('/Zone/'.$zoneName, $params);
