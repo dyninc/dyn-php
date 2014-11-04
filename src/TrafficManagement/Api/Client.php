@@ -145,6 +145,7 @@ class Client
             );
         }
 
+        $this->lastResponse = null;
         $this->lastHttpResponse = $httpClient->dispatch($request);
         if ($this->lastHttpResponse->isSuccess()) {
             $json = json_decode($this->lastHttpResponse->getBody());
