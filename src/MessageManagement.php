@@ -6,6 +6,7 @@ use Dyn\MessageManagement\Api\Client as ApiClient;
 use Dyn\MessageManagement\Api\Resource\Accounts;
 use Dyn\MessageManagement\Api\Resource\Senders;
 use Dyn\MessageManagement\Api\Resource\SuppressionList;
+use Dyn\MessageManagement\Api\Resource\Recipients;
 use Dyn\MessageManagement\Api\Resource\Reports;
 use Dyn\MessageManagement\Mail\MailInterface;
 use RuntimeException;
@@ -47,6 +48,11 @@ class MessageManagement
      * @var SuppressionList
      */
     protected $suppressionList;
+
+    /**
+     * @var Recipients
+     */
+    protected $recipients;
 
     /**
      * @var Reports
@@ -181,6 +187,23 @@ class MessageManagement
         }
 
         return $this->suppressionList;
+    }
+
+    /**
+     * Returns the recipients API resource instance, creating it if
+     * required. Used for all recipient related API functionality.
+     *
+     * @return Recipients
+     */
+    public function recipients()
+    {
+        if ($this->recipients === null) {
+            $apiClient = $this->getApiClient();
+
+            $this->recipients = new Recipients($apiClient);
+        }
+
+        return $this->recipients;
     }
 
     /**
