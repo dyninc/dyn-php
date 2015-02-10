@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+0.4.1 (2014-11-4)
+------------------
+
+* Fixed a bug where the serial_style was not supplied to the API when creating new zones (thanks @fogeytron)
+* Ensured API client's last response variable is nulled before each new API request
+
 0.4.0 (2014-08-15)
 ------------------
 
