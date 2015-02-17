@@ -65,6 +65,9 @@ class Client
             }
 
             $this->httpClient = new HttpClient(null, $config);
+             $this->httpClient->setOptions(array(
+                'sslcapath'=> getenv('sslcapath')
+            ));
         }
 
         return $this->httpClient;
