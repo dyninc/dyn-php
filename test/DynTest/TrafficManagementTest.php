@@ -4,6 +4,7 @@ namespace DynTest;
 
 use PHPUnit_Framework_TestCase;
 use Dyn\TrafficManagement;
+use Zend\Http\Client as HttpClient;
 
 class TrafficManagementTest extends PHPUnit_Framework_TestCase
 {
@@ -59,5 +60,18 @@ class TrafficManagementTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertFalse($this->tm->getZone('notarealzone.com'));
+    }
+
+    public function testCustomHttpClientCanBeUsed()
+    {
+        $config = array(
+            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'useragent' => 'Dyn Custom Http Client',
+        );
+        $customHttpClient = new HttpClient(null, $config);
+
+        $tm = new TrafficManagement('testcustomer', 'testusername', 'testpassword', $customHttpClient);
+
+        $this->assertEquals($customHttpClient, $tm->getApiClient()->getHttpClient());
     }
 }
