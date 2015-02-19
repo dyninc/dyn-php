@@ -55,7 +55,7 @@ class TrafficManagement
         $this->username = $username;
         $this->password = $password;
 
-        if ($this->httpClient) {
+        if ($httpClient) {
             $this->httpClient = $httpClient;
         }
     }
