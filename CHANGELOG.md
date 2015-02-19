@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+0.5.0 (2015-02-19)
+------------------
+
+* Improved Traffic Management and Message Management constructors to allow either a HTTP client instance or a HTTP client configuration array to be supplied to the constructor, instead of just a HTTP client instance
+* Fixed bug where zone getAllRecords() call was returning an array with duplicated key names (thanks @BillKeenan)
+* Fixed bug where a user-supplied HTTP client instance was ignored by the Traffic Management constructor (thanks @BillKeenan)
+
 0.4.1 (2014-11-4)
 ------------------
 

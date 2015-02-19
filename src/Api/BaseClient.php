@@ -34,7 +34,7 @@ abstract class BaseClient
      * @var array
      */
     protected $httpClientConfig = array(
-        'useragent' => 'Dyn PHP SDK v0.2.0',
+        'useragent' => 'Dyn PHP SDK v0.5.0',
         'maxredirects' => 5
     );
 
