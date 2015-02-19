@@ -444,7 +444,7 @@ class Zone
                 if (count($recordData) > 0) {
                     foreach ($recordData as $recordRow) {
                         $record = $className::build($recordRow);
-                        $records[$className][] = $record;
+                        $records[$type][] = $record;
                     }
                 }
             }
