@@ -74,4 +74,17 @@ class TrafficManagementTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($customHttpClient, $tm->getApiClient()->getHttpClient());
     }
+
+    public function testCustomHttpClientArrayConfigurationCanBeUsed()
+    {
+        $config = array(
+            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'useragent' => 'Dyn Custom array configured Http Client',
+        );
+        $tm = new TrafficManagement('testcustomer', 'testusername', 'testpassword', $config);
+
+        $customHttpClient = new HttpClient(null, $config);
+
+        $this->assertEquals($customHttpClient, $tm->getApiClient()->getHttpClient());
+    }
 }

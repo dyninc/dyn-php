@@ -8,6 +8,7 @@ use Dyn\MessageManagement\Api\Resource\Senders;
 use Dyn\MessageManagement\Api\Resource\SuppressionList;
 use Dyn\MessageManagement\Api\Resource\Reports;
 use Dyn\MessageManagement\Mail\MailInterface;
+use Zend\Http\Client as HttpClient;
 use RuntimeException;
 use InvalidArgumentException;
 use DateTime;
@@ -22,9 +23,9 @@ class MessageManagement
     protected $apiClient;
 
     /**
-     * The Zend HTTP Client instance
+     * The Zend HTTP Client instance or configuration
      *
-     * @var Zend\Http\Client
+     * @var array|Zend\Http\Client
      */
     protected $httpClient;
 
@@ -55,14 +56,18 @@ class MessageManagement
 
 
     /**
-     * @param string           $apiKey
-     * @param Zend\Http\Client $httpClient
+     * @param string                 $apiKey
+     * @param array|Zend\Http\Client $httpClient
      */
     public function __construct($apiKey, $httpClient = null)
     {
         $this->apiKey = $apiKey;
 
-        if ($this->httpClient) {
+        if ($httpClient) {
+            if (!is_array($httpClient) && !($httpClient instanceof HttpClient)) {
+                throw new \RuntimeException('Invalid Http client parameter supplied');
+            }
+
             $this->httpClient = $httpClient;
         }
     }
