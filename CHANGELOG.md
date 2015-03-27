@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.5.1 (2015-03-27)
+------------------
+
+* Added support for Message Management recipient status (thanks @danielsmithsd)
+
 0.5.0 (2015-02-19)
 ------------------
 
