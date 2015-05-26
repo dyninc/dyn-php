@@ -44,9 +44,7 @@ class TXT extends AbstractRecord
      */
     public function setRData(array $rdata)
     {
-        // TODO
-
-        return $this;
+        $this->rdata = $rdata;
     }
 
     /**
