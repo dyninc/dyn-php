@@ -4,6 +4,7 @@ namespace Dyn;
 
 use Dyn\TrafficManagement\Api\Client as ApiClient;
 use Dyn\TrafficManagement\Zone;
+use Zend\Http\Client as HttpClient;
 
 class TrafficManagement
 {
@@ -36,18 +37,18 @@ class TrafficManagement
     protected $password;
 
     /**
-     * The Zend HTTP Client instance
+     * The Zend HTTP Client instance or configuration
      *
-     * @var Zend\Http\Client
+     * @var array|Zend\Http\Client
      */
     protected $httpClient;
 
 
     /**
-     * @param string           $customerName
-     * @param string           $username
-     * @param string           $password
-     * @param Zend\Http\Client $httpClient
+     * @param string                 $customerName
+     * @param string                 $username
+     * @param string                 $password
+     * @param array|Zend\Http\Client $httpClient
      */
     public function __construct($customerName, $username, $password, $httpClient = null)
     {
@@ -56,6 +57,10 @@ class TrafficManagement
         $this->password = $password;
 
         if ($httpClient) {
+            if (!is_array($httpClient) && !($httpClient instanceof HttpClient)) {
+                throw new \RuntimeException('Invalid Http client parameter supplied');
+            }
+
             $this->httpClient = $httpClient;
         }
     }

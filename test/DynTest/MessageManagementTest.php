@@ -5,6 +5,7 @@ namespace DynTest;
 use PHPUnit_Framework_TestCase;
 use Dyn\MessageManagement;
 use Dyn\MessageManagement\Mail;
+use Zend\Http\Client as HttpClient;
 
 class MessageManagementTest extends PHPUnit_Framework_TestCase
 {
@@ -85,5 +86,31 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
              ->setSubject('Email sent via. Dyn SDK');
 
         $result = $this->mm->send($mail);
+    }
+
+    public function testCustomHttpClientCanBeUsed()
+    {
+        $config = array(
+            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'useragent' => 'Dyn Custom Http Client',
+        );
+        $customHttpClient = new HttpClient(null, $config);
+
+        $mm = new MessageManagement('xxxxxxxxxxxx', $customHttpClient);
+
+        $this->assertEquals($customHttpClient, $mm->getApiClient()->getHttpClient());
+    }
+
+    public function testCustomHttpClientArrayConfigurationCanBeUsed()
+    {
+        $httpConfig = array(
+            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'useragent' => 'Dyn Custom array configured Http Client',
+        );
+        $mm = new MessageManagement('xxxxxxxxxxxx', $httpConfig);
+
+        $customHttpClient = new HttpClient(null, $httpConfig);
+
+        $this->assertEquals($customHttpClient, $mm->getApiClient()->getHttpClient());
     }
 }

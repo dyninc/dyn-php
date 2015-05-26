@@ -2,73 +2,18 @@
 
 namespace Dyn\TrafficManagement\Api;
 
-use Zend\Http\Client as HttpClient;
+use Dyn\Api\BaseClient;
 use Zend\Http\Request;
 use Dyn\TrafficManagement\Api\Response;
 use Dyn\TrafficManagement\Zone;
 
-class Client
+class Client extends BaseClient
 {
-    /**
-     * @var HttpClient
-     */
-    protected $httpClient;
-
     /**
      * @var string
      */
     protected $token;
 
-    /**
-     * This property holds the most recent HTTP response sent by the API.
-     * Can be useful when debugging issues.
-     *
-     * @var Zend\Http\Response
-     */
-    protected $lastHttpResponse;
-
-    /**
-     * This property holds the most recent API response. Can be useful when
-     * debugging issues.
-     *
-     * @var Response
-     */
-    protected $lastResponse;
-
-
-    /**
-     * Constructor
-     *
-     * @param HttpClient $httpClient
-     */
-    public function __construct(HttpClient $httpClient = null)
-    {
-        $this->httpClient = $httpClient;
-    }
-
-    /**
-     * Getter for the HTTP client instance
-     *
-     * @return HttpClient
-     */
-    public function getHttpClient()
-    {
-        if (!$this->httpClient) {
-            $config = array(
-                'useragent' => 'Dyn PHP SDK v0.2.0',
-                'maxredirects' => 5
-            );
-
-            // use curl if available
-            if (extension_loaded('curl')) {
-                 $config['adapter'] = 'Zend\Http\Client\Adapter\Curl';
-            }
-
-            $this->httpClient = new HttpClient(null, $config);
-        }
-
-        return $this->httpClient;
-    }
 
     /**
      * Builds a request object for the given API path
