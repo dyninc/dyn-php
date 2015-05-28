@@ -46,9 +46,7 @@ class PTR extends AbstractRecord
      */
     public function setRData(array $rdata)
     {
-        // TODO
-
-        return $this;
+        $this->setPtrdname($rdata['ptrdname']);
     }
 
     /**
