@@ -136,7 +136,10 @@ class SRV extends AbstractRecord
     {
         // TODO
 
-        return $this;
+        $this->port = $rdata['port'];
+        $this->priority = $rdata['priority'];
+        $this->target = $rdata['target'];
+        $this->weight = $rdata['weight'];
     }
 
     /**
