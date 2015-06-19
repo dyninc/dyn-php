@@ -362,8 +362,6 @@ class Reports extends AbstractResource
      * @param  integer              $startIndex Optional start index
      * @param  null|DateTime|string $startDate  Optional start date
      * @param  null|DateTime|string $endDate    Optional end date
-     * @param  null|string          $sender     Optional sender email address
-     * @param  null|array           $xHeaders   Optional array of X-Header values
      * @return array|false
      */
     public function getIssues($startIndex = 0, $startDate = null, $endDate = null)
