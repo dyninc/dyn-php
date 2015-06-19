@@ -4,6 +4,8 @@ namespace Dyn\MessageManagement\Api\Resource;
 
 use DateTime;
 use Dyn\MessageManagement\Sender;
+use Dyn\MessageManagement\Api\Resource\Senders\Status;
+use Dyn\MessageManagement\Api\Resource\Senders\Details;
 
 class Senders extends AbstractResource
 {
@@ -13,7 +15,7 @@ class Senders extends AbstractResource
      * @param  integer $startIndex Optional start index
      * @return array|false
      */
-    public function get($startIndex = 0)
+    public function get($startIndex = 0, $extras=[])
     {
         $params = array();
         if ($startIndex) {
@@ -28,6 +30,16 @@ class Senders extends AbstractResource
             foreach ($response->data->senders as $senderData) {
                 $sender = new Sender();
                 $sender->setEmailAddress($senderData->emailaddress);
+
+                if (in_array('status', $extras)) {
+                    $status = new Status();
+                    $status->get($sender);
+                }
+
+                if (in_array('details', $extras)) {
+                    $details = new Details();
+                    $details->get($sender);
+                }
 
                 $senders[] = $sender;
             }
