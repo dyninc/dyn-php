@@ -32,12 +32,12 @@ class Senders extends AbstractResource
                 $sender->setEmailAddress($senderData->emailaddress);
 
                 if (in_array('status', $extras)) {
-                    $status = new Status();
+                    $status = new Status($this->getApiClient());
                     $status->get($sender);
                 }
 
                 if (in_array('details', $extras)) {
-                    $details = new Details();
+                    $details = new Details($this->getApiClient());
                     $details->get($sender);
                 }
 
