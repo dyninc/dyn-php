@@ -32,12 +32,14 @@ class DetailsTest extends PHPUnit_Framework_TestCase
         $this->details->getApiClient()->getHttpClient()->getAdapter()->setResponse(
 "HTTP/1.1 200 OK" . "\r\n" .
 "Content-type: application/json" . "\r\n\r\n" .
-'{"response":{"status":200,"message":"OK","data":{"emailaddress":"example@domain.com","spf":1,"dkim":1,"dkimval":"private"}}}'
+'{"response":{"status":200,"message":"OK","data":{"emailaddress":"example@domain.com","spf":1,"dkim":1,"dkimval":"private","private._domainkey.example.org":"fakekey","_domainkey.example.org":"fakedkim"}}}'
         );
 
         $details = $this->details->get($this->sender);
 
-        $this->assertEquals('private', $this->sender->getDkimValue());
+        $this->assertEquals('private', $this->sender->getDkimIdentifier());
+        $this->assertInternalType('array', $this->sender->getDkimRecords());
+        $this->assertEquals(2,count($this->sender->getDkimRecords()));
         $this->assertTrue($this->sender->dkimIsVerified());
         $this->assertTrue($this->sender->spfIsVerified());
     }

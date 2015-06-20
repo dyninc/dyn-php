@@ -86,9 +86,26 @@ class Sender
      *
      * @return string $dkimValue
      */
-    public function getDkimValue()
+    public function getDkimIdentifier()
     {
         return $this->details->dkimval;
+    }
+
+    /**
+     * Getter for DKIM DNS Records
+     *
+     * @return array $dkimRecords
+     */
+    public function getDkimRecords()
+    {
+        $email = $this->getEmailAddress();
+        $domain = substr($email, strpos($email, '@')+1);
+        $domainKeyDomain = '_domainkey.' . $domain;
+        $selectorRecord = $this->getDkimIdentifier() . '.' . $domainKeyDomain;
+        return [
+            $selectorRecord => $this->details->$selectorRecord,
+            $domainKeyDomain => $this->details->$domainKeyDomain
+        ];
     }
 
     /**

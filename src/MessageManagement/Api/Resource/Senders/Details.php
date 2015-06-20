@@ -3,8 +3,9 @@
 namespace Dyn\MessageManagement\Api\Resource\Senders;
 
 use \Dyn\MessageManagement\Sender;
+use \Dyn\MessageManagement\Api\Resource\AbstractResource;
 
-class Details extends \Dyn\MessageManagement\Api\Resource\AbstractResource {
+class Details extends AbstractResource {
 
     public function get(Sender $sender)
     {
