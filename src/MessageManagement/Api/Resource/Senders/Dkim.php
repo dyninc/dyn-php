@@ -10,17 +10,18 @@ class Dkim extends AbstractResource {
 
     public function create(Sender $sender, $dkimIdentifier=false)
     {
-        $params = array(
-            'emailaddress' => $sender->getEmailAddress()
-        );
-
         if (false === $dkimIdentifier) {
             $dkimIdentifier = uniqid();
         }
 
+        $params = array(
+            'emailaddress' => $sender->getEmailAddress(),
+            'dkim' => $dkimIdentifier
+        );
+
         $response = $this->getApiClient()->post('/senders/dkim', $params);
         if ($response && $response->isOK()) {
-            $details = new Details();
+            $details = new Details($this->getApiClient());
             $details->get($sender);
             return true;
         }

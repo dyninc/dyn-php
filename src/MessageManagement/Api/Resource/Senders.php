@@ -6,9 +6,14 @@ use DateTime;
 use Dyn\MessageManagement\Sender;
 use Dyn\MessageManagement\Api\Resource\Senders\Status;
 use Dyn\MessageManagement\Api\Resource\Senders\Details;
+use Dyn\MessageManagement\Api\Resource\Senders\Dkim;
 
 class Senders extends AbstractResource
 {
+
+    protected $dkim = null;
+
+
     /**
      * Returns up to 25 approved senders
      *
@@ -48,6 +53,15 @@ class Senders extends AbstractResource
         }
 
         return false;
+    }
+
+    public function dkim()
+    {
+        if ($this->dkim === null) {
+            $this->dkim = new Dkim($this->getApiClient());
+        }
+
+        return $this->dkim;
     }
 
     /**
