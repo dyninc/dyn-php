@@ -7,6 +7,12 @@ use \Dyn\MessageManagement\Api\Resource\AbstractResource;
 
 class Status extends AbstractResource {
 
+    /**
+     * Get status of the sender and assign to provided instance of Sender
+     *
+     * @param Sender $sender
+     * @return boolean
+     */
     public function get(Sender $sender)
     {
         $params = array(

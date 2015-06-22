@@ -7,6 +7,12 @@ use \Dyn\MessageManagement\Api\Resource\AbstractResource;
 
 class Details extends AbstractResource {
 
+    /**
+     * Gets details for sender and writes it to the provided instance of Sender
+     *
+     * @param Sender $sender
+     * @return boolean
+     */
     public function get(Sender $sender)
     {
         $params = array(
