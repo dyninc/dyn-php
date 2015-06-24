@@ -102,10 +102,15 @@ class Sender
         $domain = substr($email, strpos($email, '@')+1);
         $domainKeyDomain = '_domainkey.' . $domain;
         $selectorRecord = $this->getDkimIdentifier() . '.' . $domainKeyDomain;
-        return [
-            $selectorRecord => $this->details->$selectorRecord,
-            $domainKeyDomain => $this->details->$domainKeyDomain
-        ];
+
+        if ($this->getDkimIdentifier() !== "" && property_exists($this->details, $selectorRecord) && property_exists($this->details, $domainKeyDomain)) {
+            return [
+                $selectorRecord => $this->details->$selectorRecord,
+                $domainKeyDomain => $this->details->$domainKeyDomain
+            ];
+        } else {
+            return false;
+        }
     }
 
     /**
