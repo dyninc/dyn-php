@@ -4,6 +4,7 @@ namespace Dyn;
 
 use Dyn\TrafficManagement\Api\Client as ApiClient;
 use Dyn\TrafficManagement\Zone;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Zend\Http\Client as HttpClient;
 
 class TrafficManagement
@@ -202,7 +203,7 @@ class TrafficManagement
             return $result;
         }
 
-        return false;
+        throw new Exception(print_r($result,true));
     }
 
     /**
