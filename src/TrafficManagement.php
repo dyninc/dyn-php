@@ -182,6 +182,29 @@ class TrafficManagement
         return false;
     }
 
+
+    /**
+     * @param $start int
+     * @param $end int
+     * @return bool|Zone
+     */
+    public function getQpsJobs($start,$end)
+    {
+        $apiClient = $this->getApiClient();
+
+        ///QPSReport/', );
+        $result = $apiClient->post(
+            '/QPSReport/',
+            ['start_ts' => $start, 'end_ts' => $end, 'breakdown' => ['zones']]
+        );
+
+        if ($result && $result->isComplete()) {
+            return $result;
+        }
+
+        return false;
+    }
+
     /**
      * Returns an array of all zones from the account
      *
