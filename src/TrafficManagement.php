@@ -203,7 +203,7 @@ class TrafficManagement
             return $result;
         }
 
-        throw new Exception(print_r($result,true));
+        return $apiClient->getLastHttpResponse();
     }
 
     /**
