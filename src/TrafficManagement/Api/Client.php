@@ -157,6 +157,7 @@ class Client extends BaseClient
     {
         $request = $this->buildRequest($path);
 
+        print_r($request);
         $request->setMethod(Request::METHOD_POST);
         if ($data) {
             $request->setContent(json_encode($data));
