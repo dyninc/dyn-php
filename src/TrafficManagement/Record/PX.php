@@ -2,7 +2,7 @@
 
 namespace Dyn\TrafficManagement\Record;
 
-class NAPTR extends AbstractRecord
+class PX extends AbstractRecord
 {
     /**
      * @var string
