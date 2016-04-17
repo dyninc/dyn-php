@@ -162,9 +162,9 @@ class MessageManagement
 
     /**
      * Returns the senders API resource instance, creating it if required.
-     * Used for all suppression list related API functionality.
+     * Used for all sender related API functionality.
      *
-     * @return SuppressionList
+     * @return Senders
      */
     public function senders()
     {
