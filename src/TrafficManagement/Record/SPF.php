@@ -2,12 +2,12 @@
 
 namespace Dyn\TrafficManagement\Record;
 
-class SOA extends AbstractRecord
+class SPF extends AbstractRecord
 {
     /**
      * @var string
      */
-    protected $type = 'SOA';
+    protected $type = 'SPF';
 
     /**
      * SPF record information, e.g.: v=spfl mx ptr -all
