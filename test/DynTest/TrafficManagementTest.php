@@ -80,6 +80,7 @@ class TrafficManagementTest extends PHPUnit_Framework_TestCase
         $config = array(
             'adapter' => 'Zend\Http\Client\Adapter\Test',
             'useragent' => 'Dyn Custom array configured Http Client',
+            'timeout' => 30
         );
         $tm = new TrafficManagement('testcustomer', 'testusername', 'testpassword', $config);
 

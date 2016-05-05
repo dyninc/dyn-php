@@ -106,6 +106,7 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
         $httpConfig = array(
             'adapter' => 'Zend\Http\Client\Adapter\Test',
             'useragent' => 'Dyn Custom array configured Http Client',
+            'timeout' => 30
         );
         $mm = new MessageManagement('xxxxxxxxxxxx', $httpConfig);
 
