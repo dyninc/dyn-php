@@ -592,6 +592,28 @@ class Zone
     }
 
     /**
+     * Returns an array of nodes for the zone
+     *
+     * @param  string $fqdn Optional FQDN beneath which to return nodes
+     * @return boolean|array
+     */
+    public function getNodeList($fqdn = null)
+    {
+        $path = '/NodeList/'.$this->name;
+        if ($fqdn) {
+            $path .= '/'.$fqdn;
+        }
+        $path .= '/';
+
+        $result = $this->apiClient->get($path);
+        if ($result && $result->isComplete()) {
+            return $result->data;
+        }
+
+        return false;
+    }
+
+    /**
      * Publish changes made to the zone
      *
      * @return ApiResponse

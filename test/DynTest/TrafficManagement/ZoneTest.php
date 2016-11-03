@@ -211,4 +211,34 @@ class ZoneTest extends PHPUnit_Framework_TestCase
             $this->zone->getAllRecords()
         );
     }
+
+    public function testGetNodeList()
+    {
+        // simulate the Dyn API response
+        $this->apiClient->getHttpClient()->getAdapter()->setResponse(
+"HTTP/1.1 200 OK" . "\r\n" .
+"Content-type: application/json" . "\r\n\r\n" .
+'{"status": "success", "data": ["foo.example.com", "bar.example.com"], "job_id": 12345678, "msgs": [{"INFO": "get_node_list: Here is your node list", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}]}'
+        );
+
+       $this->assertEquals(
+            array('foo.example.com', 'bar.example.com'),
+            $this->zone->getNodeList()
+        );
+    }
+
+    public function testGetNodeListWithFQDN()
+    {
+        // simulate the Dyn API response
+        $this->apiClient->getHttpClient()->getAdapter()->setResponse(
+"HTTP/1.1 200 OK" . "\r\n" .
+"Content-type: application/json" . "\r\n\r\n" .
+'{"status": "success", "data": ["foo.example.com"], "job_id": 12345678, "msgs": [{"INFO": "get_node_list: Here is your node list", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}]}'
+        );
+
+       $this->assertEquals(
+            array('foo.example.com'),
+            $this->zone->getNodeList('foo.example.com')
+        );
+    }
 }
