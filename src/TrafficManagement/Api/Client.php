@@ -19,7 +19,7 @@ class Client extends BaseClient
      * Builds a request object for the given API path
      *
      * @param  string  $path
-     * @return Zend\Http\Request
+     * @return Request
      */
     protected function buildRequest($path)
     {
@@ -158,6 +158,7 @@ class Client extends BaseClient
         $request = $this->buildRequest($path);
 
         $request->setMethod(Request::METHOD_POST);
+
         if ($data) {
             $request->setContent(json_encode($data));
         }

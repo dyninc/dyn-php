@@ -37,7 +37,9 @@ class Response
         $response = new Response();
         $response->job_id = $json->job_id;
         $response->status = $json->status;
-        $response->msgs = $json->msgs;
+        if ($response->msgs){
+            $response->msgs = $json->msgs;
+        }
         $response->data = $json->data;
 
         return $response;

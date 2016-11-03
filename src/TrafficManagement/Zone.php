@@ -88,6 +88,24 @@ class Zone
         return $this->name;
     }
 
+
+    /**
+     *
+     * API request for this zones QPS reports for the given timeframe
+     * 
+     * @param $start int
+     * @param $end int
+     * @return ApiResponse|false
+     */
+    public function getQPS($start, $end)
+    {
+        $path = '/QPSReport/';
+
+        $result = $this->apiClient->post($path, ['start_ts'=>$start,'end_ts'=>$end,'zones'=>[$this->name]]);
+
+        return $result;
+    }
+
     /**
      * Setter for type
      *
