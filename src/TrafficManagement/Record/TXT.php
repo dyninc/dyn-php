@@ -44,7 +44,10 @@ class TXT extends AbstractRecord
      */
     public function setRData(array $rdata)
     {
-        // TODO
+        if (isset($rdata['txtdata'])) {
+            $this->setTxtdata($rdata['txtdata']);
+        }
+
 
         return $this;
     }
