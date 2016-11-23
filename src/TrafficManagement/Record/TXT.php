@@ -48,7 +48,6 @@ class TXT extends AbstractRecord
             $this->setTxtdata($rdata['txtdata']);
         }
 
-
         return $this;
     }
 
