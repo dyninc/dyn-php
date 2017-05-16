@@ -268,4 +268,31 @@ class TrafficManagement
 
         return false;
     }
+
+    /**
+     * Create the specified zone given the data file
+     * @see https://help.dyn.com/upload-zone-file-api/
+     *
+     * @param string $zoneName
+     * @param string $contents
+     * @return boolean|Dyn\TrafficManagement\Api\Response
+     */
+    public function createZoneFromFile($zoneName, $contents)
+    {
+        $params = array(
+            'file' => $contents
+        );
+
+        $result = $this->apiClient->post('/ZoneFile/'.$zoneName, $params);
+
+        if ($result && $result->isOk()) {
+            if ($result->isComplete()) {
+                return true;
+            } else {
+                return $result;
+            }
+        }
+
+        return false;
+    }
 }
