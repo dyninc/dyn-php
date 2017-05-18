@@ -295,4 +295,31 @@ class TrafficManagement
 
         return false;
     }
+
+    /**
+     * Update the specified zone given the data file
+     * @see https://help.dyn.com/upload-zone-file-api/
+     *
+     * @param string $zoneName
+     * @param string $contents
+     * @return boolean|Dyn\TrafficManagement\Api\Response
+     */
+    public function updateZoneFromFile($zoneName, $contents)
+    {
+        $params = array(
+            'file' => $contents
+        );
+
+        $result = $this->apiClient->put('/ZoneFile/'.$zoneName, $params);
+
+        if ($result && $result->isOk()) {
+            if ($result->isComplete()) {
+                return true;
+            } else {
+                return $result;
+            }
+        }
+
+        return false;
+    }
 }
