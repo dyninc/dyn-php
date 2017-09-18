@@ -100,18 +100,16 @@ class Mail extends Message implements MailInterface
 
         } elseif ($body instanceof MimeMessage) {
             $parts = $body->getParts();
-            if (count($parts) > 2) {
-                throw new RuntimeException(
-                    'Currently, only text/plain and text/html MIME parts
-                    are supported'
-                );
-            }
-
             foreach ($parts as $part) {
                 if ($part->type == 'text/plain') {
                     $params['bodytext'] = $part->getRawContent();
                 } elseif ($part->type == 'text/html') {
                     $params['bodyhtml'] = $part->getRawContent();
+                } else {
+                    throw new RuntimeException(
+                        'Currently, only text/plain and text/html MIME parts
+                        are supported'
+                    );
                 }
             }
         }
