@@ -618,12 +618,13 @@ class Zone
      *
      * @return ApiResponse
      */
-    public function publish()
+    public function publish($notes = null)
     {
         return $this->apiClient->put(
             '/Zone/'.$this->getName(),
             array(
-                'publish' => true
+                'publish' => true,
+                'notes' => $notes
             )
         );
     }
