@@ -9,13 +9,11 @@ Requires PHP **5.3.23** or above. The cURL extension is recommended (although no
 
 ## Installation
 
-The best way to install this SDK is with [Composer](http://getcomposer.org). Add the package [`dyninc/dyn-php`](https://packagist.org/packages/dyninc/dyn-php) to the `require` section of your `composer.json`:
+The best way to install this SDK is with [Composer](http://getcomposer.org). With Composer installed, run:
 
-    "require": {
-        "dyninc/dyn-php": "0.10.0"
-    }
+    composer require dyninc/dyn-php
 
-then run `composer install` to install the SDK along with its dependencies.
+from the command line.
 
 ## Quickstart - DNS
 
