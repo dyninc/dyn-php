@@ -134,7 +134,21 @@ class SRV extends AbstractRecord
      */
     public function setRData(array $rdata)
     {
-        // TODO
+        if (isset($rdata['priority'])) {
+            $this->setPriority($rdata['priority']);
+        }
+
+        if (isset($rdata['port'])) {
+            $this->setPort($rdata['port']);
+        }
+
+        if (isset($rdata['weight'])) {
+            $this->setWeight($rdata['weight']);
+        }
+
+        if (isset($rdata['target'])) {
+            $this->setTarget($rdata['target']);
+        }
 
         return $this;
     }
