@@ -216,6 +216,28 @@ class Zone
     }
 
     /**
+     * Delete a node from the zone, including all of its records and any nodes
+     * underneath it
+     *
+     * @param  string $fqdn FQDN of the node to delete
+     * @return boolean|ApiResponse
+     */
+    public function deleteNode($fqdn) {
+        $path = '/Node/'.$this->getName().'/'.$fqdn.'/';
+
+        $result = $this->apiClient->delete($path);
+        if ($result && $result->isOk()) {
+            if ($result->isComplete()) {
+                return true;
+            } else {
+                return $result;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Create the supplied record
      *
      * @param  RecordInterface $record
