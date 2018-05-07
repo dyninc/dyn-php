@@ -264,9 +264,7 @@ class Zone
      */
     public function createRecordFromParams($type, $fqdn, array $params)
     {
-	    //$result = $this->apiClient->post('/'.$type.'Record/'.$this->getName().'/'.$fqdn.'/', $params); changed to put from post for 
-	    //DNAM-2396
-        $result = $this->apiClient->put('/'.$type.'Record/'.$this->getName().'/'.$fqdn.'/', $params);
+	$result = $this->apiClient->post('/'.$type.'Record/'.$this->getName().'/'.$fqdn.'/', $params);  
         if ($result && $result->isOk()) {
             if ($result->isComplete()) {
                 return true;
