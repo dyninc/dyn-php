@@ -25,6 +25,42 @@ class ZoneTest extends PHPUnit_Framework_TestCase
         $this->zone->setName('example.com');
     }
 
+    public function testoverwriteTXTRecords(){
+	$this->zone->overwriteTXTRecords(array(),$fqdn='example.com');
+    }
+
+    public function testoverwriteTXTRecordsWithArgs(){
+        //$params = array(
+        //    'rdata' => $record->getRData(),
+        //    'ttl' => $record->getTtl()
+        //);
+        $fqdn = 'example.com';
+	$rdataArray[] = array('txtdata' => 'whatevertxt');
+	$rdataArray[] = array('txtdata' => 'whatevertxt2');
+	$rdataArray[] = array('txtdata' => 'whatevertxt3');
+	$rdataArray[] = array('txtdata' => 'whatevertxt4');
+        $rparams = array(
+            'rdata' => $rdataArray,
+            'ttl' => 300 //$record->getTtl()
+        );
+	$records[]= array('rdata'=>'txtdata');
+	$this->zone->overwriteTXTRecords($rparams,$fqdn);
+    }
+
+    public function testoverwriteTXTRecordserrorsWithoutArgs(){
+	$this->zone->overwriteTXTRecords();
+    }
+
+    public function textoverwriteTXTRecordswithapicall(){
+	$this->apiClient->getHttpClient()->getAdapter()->setResponse(
+	"HTTP/1.1 200 OK" . "\r\n" .
+	"Content-type: application/json" . "\r\n\r\n" .
+	'{"status": "success", "data": {"url": "http://example.com/other", "code": "302", "keep_uri": "False", "fqdn": "test.example.com", "zone": "example.com"}, "job_id": 12345678, "msgs": [{"INFO": "add_node: New node added to zone", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}, {"INFO": "add: Service added", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}]}'
+        );
+	
+  
+    }
+
     public function testHttpRedirectServiceCreation()
     {
         $httpRedirect = new HTTPRedirect();

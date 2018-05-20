@@ -233,6 +233,21 @@ class Zone
         return $this->defaultTtl;
     }
 
+    public function overwriteTXTRecords($records=array(),$fqdn='none'){
+
+    /* array(
+    *	array($rdata => $txtdata),
+    * )
+    * $TXTRecords['test']['txtdata']
+    * $TXTRecords['ttl']
+    * array TXTRecords — Required. Individual records.
+      hash rdata — Required. RData defining the record.
+      string txtdata — Required. Free form text.
+      string ttl — TTL for the record in seconds. Set to “0” to use zone default.
+    */
+	//$result = $this->apiClient->put('/TXTRecord/'.$this->getName().'/'.$fqdn.'/', $params);  
+    }
+
     /**
      * Create the supplied record
      *
