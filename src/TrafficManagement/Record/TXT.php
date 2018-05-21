@@ -34,7 +34,7 @@ class TXT extends AbstractRecord
      */
     public function getTxtdata()
     {
-        return sanitizeTxtData($this->txtdata);
+        return $this->sanitizeTxtData($this->txtdata);
     }
 
     /*filter for getting txt data so we remove any escape sequences
