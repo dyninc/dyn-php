@@ -28,7 +28,7 @@ class Client extends BaseClient
 
         $headers = $request->getHeaders();
         $headers->addHeaderLine('Content-Type', 'application/json');
-        $headers->addHeaderLine('API-Version', '3.5.8');
+        $headers->addHeaderLine('API-Version', '3.7.16');
 
         if ($this->token) {
             $headers->addHeaderLine('Auth-Token', $this->token);
