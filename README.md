@@ -5,7 +5,7 @@ This SDK allows PHP developers to interact with Dyn's product APIs from within t
 
 ## Requirements
 
-Requires PHP **5.3.23** or above. The cURL extension is recommended (although not required), and will be used if present.
+Requires PHP **7.4** or above. The cURL extension is recommended (although not required), and will be used if present.
 
 ## Installation
 
