@@ -2,9 +2,9 @@
 
 namespace Dyn\MessageManagement\Api\Http;
 
-use Zend\Http\Response as ZendHttpResponse;
+use Laminas\Http\Response as LaminasHttpResponse;
 
-class Response extends ZendHttpResponse
+class Response extends LaminasHttpResponse
 {
     const STATUS_CODE_451 = 451; // Missing or invalid API key
     const STATUS_CODE_452 = 452; // Missing or invalid required fields

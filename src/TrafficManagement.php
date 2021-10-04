@@ -4,7 +4,7 @@ namespace Dyn;
 
 use Dyn\TrafficManagement\Api\Client as ApiClient;
 use Dyn\TrafficManagement\Zone;
-use Zend\Http\Client as HttpClient;
+use Laminas\Http\Client as HttpClient;
 
 class TrafficManagement
 {
@@ -37,9 +37,9 @@ class TrafficManagement
     protected $password;
 
     /**
-     * The Zend HTTP Client instance or configuration
+     * The Laminas HTTP Client instance or configuration
      *
-     * @var array|Zend\Http\Client
+     * @var array|Laminas\Http\Client
      */
     protected $httpClient;
 
@@ -48,7 +48,7 @@ class TrafficManagement
      * @param string                 $customerName
      * @param string                 $username
      * @param string                 $password
-     * @param array|Zend\Http\Client $httpClient
+     * @param array|Laminas\Http\Client $httpClient
      */
     public function __construct($customerName, $username, $password, $httpClient = null)
     {
@@ -80,7 +80,7 @@ class TrafficManagement
     /**
      * Returns an instance of the API client, creating it if required
      *
-     * If a custom instance of the Zend Http Client was supplied to this class'
+     * If a custom instance of the Laminas Http Client was supplied to this class'
      * constructor it will be used. This allows for custom functionality (such as
      * working through a HTTP proxy) if needed.
      *

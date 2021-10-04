@@ -2,9 +2,9 @@
 
 namespace Dyn\MessageManagement;
 
-use Zend\Mail\Message;
-use Zend\Mime\Message as MimeMessage;
-use Zend\Mime\Part as MimePart;
+use Laminas\Mail\Message;
+use Laminas\Mime\Message as MimeMessage;
+use Laminas\Mime\Part as MimePart;
 use Dyn\MessageManagement\Mail\MailInterface;
 use RuntimeException;
 use InvalidArgumentException;

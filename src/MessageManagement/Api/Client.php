@@ -3,8 +3,8 @@
 namespace Dyn\MessageManagement\Api;
 
 use Dyn\Api\BaseClient;
-use Zend\Http\Client as HttpClient;
-use Zend\Http\Request;
+use Laminas\Http\Client as HttpClient;
+use Laminas\Http\Request;
 use Dyn\MessageManagement\Api\Response;
 use Dyn\MessageManagement\Api\Http\Response as HttpResponse;
 use Dyn\MessageManagement\Api\Exception;
@@ -21,7 +21,7 @@ class Client extends BaseClient
      * Builds a request object for the given API path
      *
      * @param  string  $path
-     * @return Zend\Http\Request
+     * @return Laminas\Http\Request
      */
     protected function buildRequest($path)
     {
@@ -136,7 +136,7 @@ class Client extends BaseClient
     /**
      * Returns the last HTTP response received from the API
      *
-     * @return Zend\Http\Response
+     * @return Laminas\Http\Response
      */
     public function getLastHttpResponse()
     {

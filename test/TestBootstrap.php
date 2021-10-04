@@ -7,8 +7,8 @@ chdir('../');
 
 use Dyn\TrafficManagement\Api\Client as DnsApiClient;
 use Dyn\MessageManagement\Api\Client as EmailApiClient;
-use Zend\Http\Client\Adapter\Test as TestAdapter;
-use Zend\Http\Client as HttpClient;
+use Laminas\Http\Client\Adapter\Test as TestAdapter;
+use Laminas\Http\Client as HttpClient;
 
 class TestBootstrap
 {

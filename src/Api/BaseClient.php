@@ -2,7 +2,7 @@
 
 namespace Dyn\Api;
 
-use Zend\Http\Client as HttpClient;
+use Laminas\Http\Client as HttpClient;
 
 abstract class BaseClient
 {
@@ -15,7 +15,7 @@ abstract class BaseClient
      * This property holds the most recent HTTP response sent by the API.
      * Can be useful when debugging issues.
      *
-     * @var Zend\Http\Response
+     * @var Laminas\Http\Response
      */
     protected $lastHttpResponse;
 
@@ -73,7 +73,7 @@ abstract class BaseClient
         if (!array_key_exists('adapter', $this->httpClientConfig)) {
             // use curl if available
             if (extension_loaded('curl')) {
-                 $this->httpClientConfig['adapter'] = 'Zend\Http\Client\Adapter\Curl';
+                 $this->httpClientConfig['adapter'] = 'Laminas\Http\Client\Adapter\Curl';
             }
         }
 

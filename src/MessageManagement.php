@@ -9,7 +9,7 @@ use Dyn\MessageManagement\Api\Resource\SuppressionList;
 use Dyn\MessageManagement\Api\Resource\Recipients;
 use Dyn\MessageManagement\Api\Resource\Reports;
 use Dyn\MessageManagement\Mail\MailInterface;
-use Zend\Http\Client as HttpClient;
+use Laminas\Http\Client as HttpClient;
 use RuntimeException;
 use InvalidArgumentException;
 use DateTime;
@@ -24,9 +24,9 @@ class MessageManagement
     protected $apiClient;
 
     /**
-     * The Zend HTTP Client instance or configuration
+     * The Laminas HTTP Client instance or configuration
      *
-     * @var array|Zend\Http\Client
+     * @var array|Laminas\Http\Client
      */
     protected $httpClient;
 
@@ -63,7 +63,7 @@ class MessageManagement
 
     /**
      * @param string                 $apiKey
-     * @param array|Zend\Http\Client $httpClient
+     * @param array|Laminas\Http\Client $httpClient
      */
     public function __construct($apiKey, $httpClient = null)
     {
@@ -93,7 +93,7 @@ class MessageManagement
     /**
      * Returns an instance of the API client, creating it if required
      *
-     * If a custom instance of the Zend Http Client was supplied to this class'
+     * If a custom instance of the Laminas Http Client was supplied to this class'
      * constructor it will be used. This allows for custom functionality (such as
      * working through a HTTP proxy) if needed.
      *
