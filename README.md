@@ -72,3 +72,11 @@ More detailed examples can be found in the [examples](examples) folder.
 * Traffic Management - HTTP Redirect service: create/update/list/destroy
 * Traffic Management - Dynamic DNS service: create/update/list/destroy
 * Message Management - All endpoints supported
+
+# Testing
+
+With the Composer packages installed, unit tests can be run from this folder using the command:
+
+```
+./vendor/bin/phpunit --configuration test/phpunit.xml
+```
