@@ -10,8 +10,8 @@
         }
     },
     "require": {
-        "php": ">=5.3.23",
-        "zendframework/zend-http": "^2.3",
-        "zendframework/zend-mail": "^2.3"
+        "php": ">=7.4",
+        "laminas/laminas-http": "^2.3",
+        "laminas/laminas-mail": "^2.3"
     }
 }

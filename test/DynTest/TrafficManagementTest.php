@@ -4,7 +4,7 @@ namespace DynTest;
 
 use PHPUnit_Framework_TestCase;
 use Dyn\TrafficManagement;
-use Zend\Http\Client as HttpClient;
+use Laminas\Http\Client as HttpClient;
 
 class TrafficManagementTest extends PHPUnit_Framework_TestCase
 {
@@ -65,7 +65,7 @@ class TrafficManagementTest extends PHPUnit_Framework_TestCase
     public function testCustomHttpClientCanBeUsed()
     {
         $config = array(
-            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'adapter' => 'Laminas\Http\Client\Adapter\Test',
             'useragent' => 'Dyn Custom Http Client',
         );
         $customHttpClient = new HttpClient(null, $config);
@@ -78,7 +78,7 @@ class TrafficManagementTest extends PHPUnit_Framework_TestCase
     public function testCustomHttpClientArrayConfigurationCanBeUsed()
     {
         $config = array(
-            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'adapter' => 'Laminas\Http\Client\Adapter\Test',
             'useragent' => 'Dyn Custom array configured Http Client',
             'timeout' => 30
         );

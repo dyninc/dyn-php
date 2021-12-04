@@ -3,7 +3,7 @@
 namespace Dyn\TrafficManagement\Api;
 
 use Dyn\Api\BaseClient;
-use Zend\Http\Request;
+use Laminas\Http\Request;
 use Dyn\TrafficManagement\Api\Response;
 use Dyn\TrafficManagement\Zone;
 
@@ -19,7 +19,7 @@ class Client extends BaseClient
      * Builds a request object for the given API path
      *
      * @param  string  $path
-     * @return Zend\Http\Request
+     * @return Laminas\Http\Request
      */
     protected function buildRequest($path)
     {
@@ -110,7 +110,7 @@ class Client extends BaseClient
     /**
      * Returns the last HTTP response received from the API
      *
-     * @return Zend\Http\Response
+     * @return Laminas\Http\Response
      */
     public function getLastHttpResponse()
     {

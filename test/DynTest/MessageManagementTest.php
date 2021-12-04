@@ -5,7 +5,7 @@ namespace DynTest;
 use PHPUnit_Framework_TestCase;
 use Dyn\MessageManagement;
 use Dyn\MessageManagement\Mail;
-use Zend\Http\Client as HttpClient;
+use Laminas\Http\Client as HttpClient;
 
 class MessageManagementTest extends PHPUnit_Framework_TestCase
 {
@@ -91,7 +91,7 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
     public function testCustomHttpClientCanBeUsed()
     {
         $config = array(
-            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'adapter' => 'Laminas\Http\Client\Adapter\Test',
             'useragent' => 'Dyn Custom Http Client',
         );
         $customHttpClient = new HttpClient(null, $config);
@@ -104,7 +104,7 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
     public function testCustomHttpClientArrayConfigurationCanBeUsed()
     {
         $httpConfig = array(
-            'adapter' => 'Zend\Http\Client\Adapter\Test',
+            'adapter' => 'Laminas\Http\Client\Adapter\Test',
             'useragent' => 'Dyn Custom array configured Http Client',
             'timeout' => 30
         );
