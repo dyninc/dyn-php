@@ -2,16 +2,16 @@
 
 namespace DynTest;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\MessageManagement;
 use Dyn\MessageManagement\Mail;
 use Laminas\Http\Client as HttpClient;
 
-class MessageManagementTest extends PHPUnit_Framework_TestCase
+class MessageManagementTest extends TestCase
 {
     protected $mm;
 
-    public function setUp()
+    public function setUp(): void
     {
         $apiClient = TestBootstrap::getTestMMApiClient();
         $apiClient->setApiKey('xxxxxxxxxxxx');
@@ -42,7 +42,7 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
 
     public function testRecipientIsRequired()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
 
         $mail = new Mail();
         $mail->setFrom('user@example.com', 'Joe Bloggs')
@@ -54,7 +54,7 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
 
     public function testSenderIsRequired()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
 
         $mail = new Mail();
         $mail->setTo('janedoe@example.com')
@@ -66,7 +66,7 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
 
     public function testSubjectIsRequired()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
 
         $mail = new Mail();
         $mail->setFrom('user@example.com', 'Joe Bloggs')
@@ -78,7 +78,7 @@ class MessageManagementTest extends PHPUnit_Framework_TestCase
 
     public function testBodyIsRequired()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
 
         $mail = new Mail();
         $mail->setFrom('user@example.com', 'Joe Bloggs')

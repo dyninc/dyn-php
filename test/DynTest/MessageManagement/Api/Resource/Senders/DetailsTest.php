@@ -2,17 +2,17 @@
 
 namespace DynTest\MessageManagement\Api\Resource\Senders;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DynTest\TestBootstrap;
 use Dyn\MessageManagement\Api\Resource\Senders\Details;
 use Dyn\MessageManagement\Sender;
 
-class DetailsTest extends PHPUnit_Framework_TestCase
+class DetailsTest extends TestCase
 {
     protected $sender;
     protected $details;
 
-    public function setUp()
+    public function setUp(): void
     {
         $apiClient = TestBootstrap::getTestMMApiClient();
         $apiClient->setApiKey('xxxxxxxxxxxx');
@@ -38,7 +38,7 @@ class DetailsTest extends PHPUnit_Framework_TestCase
         $details = $this->details->get($this->sender);
 
         $this->assertEquals('private', $this->sender->getDkimIdentifier());
-        $this->assertInternalType('array', $this->sender->getDkimRecords());
+        $this->assertIsArray($this->sender->getDkimRecords());
         $this->assertEquals(2,count($this->sender->getDkimRecords()));
         $this->assertTrue($this->sender->dkimIsVerified());
         $this->assertTrue($this->sender->spfIsVerified());

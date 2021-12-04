@@ -2,22 +2,22 @@
 
 namespace DynTest\MessageManagement\Api;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\MessageManagement\Api\Client;
 use DynTest\TestBootstrap;
 
-class ClientTest extends PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     protected $client;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = TestBootstrap::getTestMMApiClient();
     }
 
     public function testApiCallWithNoApiKeyThrowsException()
     {
-        $this->setExpectedException('Dyn\MessageManagement\Api\Exception\MissingOrInvalidApiKeyException');
+        $this->expectException('Dyn\MessageManagement\Api\Exception\MissingOrInvalidApiKeyException');
 
         $client = new Client();
         $client->get('/foo');
@@ -25,7 +25,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function testApiCallWithInvalidApiKeyThrowsException()
     {
-        $this->setExpectedException('Dyn\MessageManagement\Api\Exception\MissingOrInvalidApiKeyException');
+        $this->expectException('Dyn\MessageManagement\Api\Exception\MissingOrInvalidApiKeyException');
 
         // simulate the Dyn API response
         $this->client->getHttpClient()->getAdapter()->setResponse(

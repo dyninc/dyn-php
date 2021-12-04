@@ -2,15 +2,15 @@
 
 namespace DynTest;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\TrafficManagement;
 use Laminas\Http\Client as HttpClient;
 
-class TrafficManagementTest extends PHPUnit_Framework_TestCase
+class TrafficManagementTest extends TestCase
 {
     protected $tm;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->tm = new TrafficManagement('testcustomer', 'testusername', 'testpassword');
         $this->tm->setApiClient(TestBootstrap::getTestTMApiClient());

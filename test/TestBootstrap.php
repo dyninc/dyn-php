@@ -3,7 +3,7 @@
 namespace DynTest;
 
 error_reporting(E_ALL | E_STRICT);
-chdir('../');
+// chdir('../');
 
 use Dyn\TrafficManagement\Api\Client as DnsApiClient;
 use Dyn\MessageManagement\Api\Client as EmailApiClient;

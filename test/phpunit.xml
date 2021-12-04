@@ -1,7 +1,16 @@
-<phpunit bootstrap="TestBootstrap.php" colors="true">
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="TestBootstrap.php"
+         cacheResult="false"
+         colors="true"
+         executionOrder="depends,defects"
+         failOnRisky="true"
+         failOnWarning="true"
+         verbose="true">
     <testsuites>
-        <testsuite name="Dyn">
-            <directory>./DynTest</directory>
+        <testsuite name="default">
+            <directory>./</directory>
         </testsuite>
     </testsuites>
 </phpunit>

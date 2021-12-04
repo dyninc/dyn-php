@@ -2,10 +2,10 @@
 
 namespace DynTest\MessageManagement;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\MessageManagement\Mail;
 
-class MailTest extends PHPUnit_Framework_TestCase
+class MailTest extends TestCase
 {
     public function testBasicApiParams()
     {
@@ -17,7 +17,7 @@ class MailTest extends PHPUnit_Framework_TestCase
 
         $params = $mail->toApiParams();
 
-        $this->assertInternalType('array', $params);
+        $this->assertIsArray($params);
         $this->assertArrayHasKey('from', $params);
         $this->assertArrayHasKey('to', $params);
         $this->assertArrayHasKey('subject', $params);
@@ -35,7 +35,7 @@ class MailTest extends PHPUnit_Framework_TestCase
 
         $params = $mail->toApiParams();
 
-        $this->assertInternalType('array', $params);
+        $this->assertIsArray($params);
         $this->assertArrayHasKey('from', $params);
         $this->assertArrayHasKey('to', $params);
         $this->assertArrayHasKey('subject', $params);
@@ -54,7 +54,7 @@ class MailTest extends PHPUnit_Framework_TestCase
 
         $params = $mail->toApiParams();
 
-        $this->assertInternalType('array', $params);
+        $this->assertIsArray($params);
         $this->assertArrayHasKey('from', $params);
         $this->assertArrayHasKey('to', $params);
         $this->assertArrayHasKey('subject', $params);
@@ -75,7 +75,7 @@ class MailTest extends PHPUnit_Framework_TestCase
 
         $params = $mail->toApiParams();
 
-        $this->assertInternalType('array', $params);
+        $this->assertIsArray($params);
         $this->assertArrayHasKey('from', $params);
         $this->assertArrayHasKey('to', $params);
         $this->assertArrayHasKey('subject', $params);

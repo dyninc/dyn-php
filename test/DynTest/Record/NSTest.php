@@ -2,10 +2,10 @@
 
 namespace DynTest\Record;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\TrafficManagement\Record\NS;
 
-class NSTest extends PHPUnit_Framework_TestCase
+class NSTest extends TestCase
 {
     public function testRData()
     {

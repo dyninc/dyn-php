@@ -2,10 +2,10 @@
 
 namespace DynTest\Record;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\TrafficManagement\Record\MX;
 
-class MXTest extends PHPUnit_Framework_TestCase
+class MXTest extends TestCase
 {
     public function testRData()
     {

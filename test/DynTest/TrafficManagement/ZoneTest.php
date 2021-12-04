@@ -2,7 +2,7 @@
 
 namespace DynTest\TrafficManagement;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\TrafficManagement\Zone;
 use Dyn\TrafficManagement\Service\HTTPRedirect;
 use Dyn\TrafficManagement\Service\DynamicDNS;
@@ -11,13 +11,13 @@ use Dyn\TrafficManagement\Record\A as ARecord;
 use Dyn\TrafficManagement\Record\NS as NSRecord;
 use Dyn\TrafficManagement\Record\MX as MXRecord;
 
-class ZoneTest extends PHPUnit_Framework_TestCase
+class ZoneTest extends TestCase
 {
     protected $apiClient;
 
     protected $zone;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->apiClient = \DynTest\TestBootstrap::getTestTMApiClient();
 
@@ -60,6 +60,7 @@ class ZoneTest extends PHPUnit_Framework_TestCase
 '{"status": "success", "data": {"url": "http://example.com/somethingelse", "code": "302", "keep_uri": "", "fqdn": "test.example.com", "zone": "example.com"}, "job_id": 12345678, "msgs": [{"INFO": "update: Update successful", "SOURCE": "BLL", "ERR_CD": null, "LVL": "INFO"}]}'
         );
 
+        $this->assertTrue($this->zone->updateService($httpRedirect));
     }
 
     public function testHttpRedirectServiceDeletion()

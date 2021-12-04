@@ -2,10 +2,10 @@
 
 namespace DynTest\MessageManagement;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\MessageManagement\Account;
 
-class AccountTest extends PHPUnit_Framework_TestCase
+class AccountTest extends TestCase
 {
     public function testJsonParsing()
     {
@@ -32,7 +32,7 @@ class AccountTest extends PHPUnit_Framework_TestCase
 
     public function testInvalidUsernameThrowsException()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $account = new Account();
         $account->setUsername('invalidusername');

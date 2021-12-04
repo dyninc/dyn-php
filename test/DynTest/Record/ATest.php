@@ -2,10 +2,10 @@
 
 namespace DynTest\Record;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Dyn\TrafficManagement\Record\A;
 
-class ATest extends PHPUnit_Framework_TestCase
+class ATest extends TestCase
 {
     public function testRData()
     {
@@ -33,7 +33,7 @@ class ATest extends PHPUnit_Framework_TestCase
 
     public function testAddressValidation()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $a = new A();
         $a->setAddress('0:0:0:0:0:ffff:8600:4c33');

@@ -2,16 +2,16 @@
 
 namespace DynTest\MessageManagement\Api\Resource;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DynTest\TestBootstrap;
 use Dyn\MessageManagement\Api\Resource\Accounts;
 use Dyn\MessageManagement\Account;
 
-class AccountsTest extends PHPUnit_Framework_TestCase
+class AccountsTest extends TestCase
 {
     protected $accounts;
 
-    public function setUp()
+    public function setUp(): void
     {
         $apiClient = TestBootstrap::getTestMMApiClient();
         $apiClient->setApiKey('xxxxxxxxxxxx');
@@ -30,7 +30,7 @@ class AccountsTest extends PHPUnit_Framework_TestCase
 
         $accounts = $this->accounts->getAll();
 
-        $this->assertInternalType('array', $accounts);
+        $this->assertIsArray($accounts);
         $this->assertArrayHasKey(1, $accounts);
         $this->assertInstanceOf('Dyn\MessageManagement\Account', $accounts[1]);
     }
@@ -78,7 +78,7 @@ class AccountsTest extends PHPUnit_Framework_TestCase
 
     public function testCreateRequiresUsername()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException('RuntimeException');
 
         $account = new Account();
         $account->setPassword('notarealpassword')

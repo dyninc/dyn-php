@@ -2,16 +2,16 @@
 
 namespace DynTest\MessageManagement\Api\Resource;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DynTest\TestBootstrap;
 use Dyn\MessageManagement\Api\Resource\Senders;
 use Dyn\MessageManagement\Sender;
 
-class SendersTest extends PHPUnit_Framework_TestCase
+class SendersTest extends TestCase
 {
     protected $senders;
 
-    public function setUp()
+    public function setUp(): void
     {
         $apiClient = TestBootstrap::getTestMMApiClient();
         $apiClient->setApiKey('xxxxxxxxxxxx');
@@ -34,7 +34,7 @@ class SendersTest extends PHPUnit_Framework_TestCase
 
         $senders = $this->senders->get();
 
-        $this->assertInternalType('array', $senders);
+        $this->assertIsArray($senders);
 
         foreach ($senders as $sender) {
             $this->assertInstanceOf('Dyn\MessageManagement\Sender', $sender);

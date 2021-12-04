@@ -2,17 +2,17 @@
 
 namespace DynTest\MessageManagement\Api\Resource\Senders;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use DynTest\TestBootstrap;
 use Dyn\MessageManagement\Api\Resource\Senders\Status;
 use Dyn\MessageManagement\Sender;
 
-class StatusTest extends PHPUnit_Framework_TestCase
+class StatusTest extends TestCase
 {
     protected $sender;
     protected $status;
 
-    public function setUp()
+    public function setUp(): void
     {
         $apiClient = TestBootstrap::getTestMMApiClient();
         $apiClient->setApiKey('xxxxxxxxxxxx');
@@ -37,7 +37,7 @@ class StatusTest extends PHPUnit_Framework_TestCase
 
         $status = $this->status->get($this->sender);
 
-        $this->assertInternalType('bool', $status);
+        $this->assertIsBool($status);
         $this->assertTrue($this->sender->isReady());
     }
 
@@ -56,7 +56,7 @@ class StatusTest extends PHPUnit_Framework_TestCase
 
         $status = $this->status->get($this->sender);
 
-        $this->assertInternalType('bool', $status);
+        $this->assertIsBool($status);
         $this->assertFalse($this->sender->isReady());
     }
 
